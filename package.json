@@ -1,6 +1,7 @@
 {
   "name": "greenhand_backend",
   "version": "1.0.0",
+  "type": "module",
   "description": "Le backend de Green Hand",
   "main": "index.js",
   "scripts": {
