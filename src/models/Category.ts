@@ -1,7 +1,9 @@
 //TODO faire les relations entre les models via les methodes appropriées
 // Pour l'instant, juste les classes de base avec les attributs et constructeurs
 
-export class Category {
+import type { ICategory } from '../interfaces/ICategory.js';
+
+export class Category implements ICategory {
     categoryId: number;
     name: string;
     description: string;

@@ -3,8 +3,9 @@
 
 import { Category } from './Category.js';
 import { PlantPhotos } from './PlantPhotos.js';
+import type { IPlants } from '../interfaces/IPlants.js';
 
-export class Plants {
+export class Plants implements IPlants {
     plantId: number;
     name: string;
     categoryId: number; // Référence à la catégorie
