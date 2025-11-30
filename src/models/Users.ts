@@ -1,7 +1,9 @@
 //TODO faire les relations entre les models via les methodes appropriées
 // Pour l'instant, juste les classes de base avec les attributs et constructeurs
 
-export class Users {   
+import type { IUsers } from '../interfaces/IUsers.js';
+
+export class Users implements IUsers {   
     id: number;
     username: string;
     email: string;
