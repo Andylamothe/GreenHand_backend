@@ -1,5 +1,4 @@
 export interface IRecommendationAi {
-    id: number;
     plantId: number;
     recommendationType: 'watering' | 'fertilizing' | 'pruning' | 'general' | 'health';
     recommendationText: string;
