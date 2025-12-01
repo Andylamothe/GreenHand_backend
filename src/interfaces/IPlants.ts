@@ -1,13 +1,12 @@
 import { PlantPhotos } from '../models/PlantPhotos.js';
+import {Types} from "mongoose"
 
 export interface IPlants {
-    plantId: number;
     name: string;
-    categoryId: number;
+    categoryId: Types.ObjectId;
+    inventoryId: Types.ObjectId;
     description: string;
-    photos: PlantPhotos[];
-    inventoryId: number;
-    plantedDate: Date;
+    creationDate: Date;
     lastWatered?: Date;
     notes?: string;
 }
