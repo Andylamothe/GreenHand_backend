@@ -1,23 +1,36 @@
-//TODO faire les relations entre les models via les methodes appropriées
-// Pour l'instant, juste les classes de base avec les attributs et constructeurs
+import { Schema, model } from "mongoose";
+import { IUsers } from "../interfaces/IUsers"
 
-import type { IUsers } from '../interfaces/IUsers.js';
+ 
+const UserSchema = new Schema<IUsers>(
+  {
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+      trim: true,
+    },
+    username: {
+      type: String,
+      required: true,
+      unique: true,
+      trim: true,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
 
-export class Users implements IUsers {   
-    id: number;
-    username: string;
-    email: string;
-    password: string;
-    location: string;
-    inventoryId?: number; // Référence à l'inventaire de l'utilisateur
-    createdAt: Date;
-
-    constructor(id: number, username: string, email: string, password: string, location: string, createdAt: Date) {
-        this.id = id;
-        this.username = username;
-        this.email = email;
-        this.password = password;
-        this.location = location;
-        this.createdAt = createdAt;
+    location: {
+        type: String,
+        required: true,
+    },
+    createdAt: {
+     type: Date,
     }
-}
+  },
+  { timestamps: true }
+);
+ 
+
+export const User = model<IUsers>("User", UserSchema);
