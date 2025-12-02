@@ -40,3 +40,6 @@ build/
 
 # Configurations système
 *.swp
+
+# Configuration base de données
+.env
