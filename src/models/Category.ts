@@ -23,13 +23,6 @@ const CategorySchema = new Schema<ICategory>(
         type: String,
         required: true,
     },
-    wateringFrequency: {
-     type: Number,
-    },
-    sunlightRequirement: { 
-        type: String,
-        enum: ['low', 'medium', 'high']
-       }
   },
   { timestamps: true }
 );
