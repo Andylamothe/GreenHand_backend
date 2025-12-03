@@ -1,5 +1,6 @@
 import { Schema, model } from "mongoose";
 import { IPlants } from "../interfaces/IPlants"
+import { regex } from "../utils/regex";
 
  
 const PlantSchema = new Schema<IPlants>(
@@ -7,6 +8,8 @@ const PlantSchema = new Schema<IPlants>(
     name: {
       type: String,
       required: true,
+      match: [regex.nameRegex, "Le nom contient des caractères invalides"],
+      trim: true,
     },
     categoryId: {
         type: Schema.Types.ObjectId,
@@ -18,6 +21,7 @@ const PlantSchema = new Schema<IPlants>(
     },
     description: {
         type: String,
+        trim: true,
     },
     creationDate: {
      type: Date,
