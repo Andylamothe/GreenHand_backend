@@ -1,0 +1,1 @@
+// Endpoint pour gérer les recommandations basées sur l'IA
