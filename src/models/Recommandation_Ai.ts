@@ -1,28 +1,38 @@
-//TODO faire les relations entre les models via les methodes appropriées
-// Pour l'instant, juste les classes de base avec les attributs et constructeurs
+import { Schema, model } from "mongoose";
+import { IUsers } from "../interfaces/IUsers"
+import { IPlantPhotos } from "../interfaces/IPlantPhotos";
+import { Document, Types } from "mongoose";
+import { IRecommendationAi } from "../interfaces/IRecommendationAi";
 
-import type { IRecommendationAi } from '../interfaces/IRecommendationAi.js';
+ 
+const IRecommendationAiSchema = new Schema<IRecommendationAi>(
+  {
+    plantId: {
+      type: Types.ObjectId,
+      required: true,
+    },
+    recommendationType: {
+      type: String,
+      enum: ['watering', 'fertilizing', 'pruning', 'general','health'],
+    },
 
-export class RecommendationAi implements IRecommendationAi {
-    id: number;
-    plantId: number; 
-    recommendationType: 'watering' | 'fertilizing' | 'pruning' | 'general' | 'health';
-    recommendationText: string;
-    priority: 'low' | 'medium' | 'high';
-    dateGenerated: Date;
-    isRead: boolean;
-    isApplied: boolean;
+    priority: {
+        type: String,
+        enum: ['low', 'medium', 'high'],
+        required: true,
+    },
+    dateGenerated: {
+     type: Date,
+    },
+      isRead: {
+     type: Boolean,
+    },
+     isApplied: {
+     type: Boolean,
+    },
+  },
+  { timestamps: true }
+);
+ 
 
-    constructor(id: number, plantId: number, recommendationType: 'watering' | 'fertilizing' | 'pruning' | 'general' | 'health', recommendationText: string, priority: 'low' | 'medium' | 'high' = 'medium') {
-        this.id = id;
-        this.plantId = plantId;
-        this.recommendationType = recommendationType;
-        this.recommendationText = recommendationText;
-        this.priority = priority;
-        this.dateGenerated = new Date();
-        this.isRead = false;
-        this.isApplied = false;
-    }
-
-
-}
+export const PlantPhotos = model<IRecommendationAi>("PlantPhotos", IRecommendationAiSchema);

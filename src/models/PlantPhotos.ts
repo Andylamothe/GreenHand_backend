@@ -1,26 +1,33 @@
-//TODO faire les relations entre les models via les methodes appropriées
-// Pour l'instant, juste les classes de base avec les attributs et constructeurs
+import { Schema, model } from "mongoose";
+import { IUsers } from "../interfaces/IUsers"
+import { IPlantPhotos } from "../interfaces/IPlantPhotos";
+import { Document, Types } from "mongoose";
 
-import type { IPlantPhotos } from '../interfaces/IPlantPhotos.js';
+ 
+const PlantPhotosSchema = new Schema<IPlantPhotos>(
+  {
+    plantId: {
+      type: Types.ObjectId,
+      required: true,
+    },
+    photoUrl: {
+      type: String,
+    },
+    healthScore: {
+      type: Number,
+      required: true,
+    },
 
-export class PlantPhotos implements IPlantPhotos {
-    id: number;
-    plantId: number; // Référence à la plant
-    photoUrl: string;
-    healthScore: number;
-    comparisonResult: string;
-    dateTaken: Date;
-    analysisComplete: boolean;
-
-    constructor(id: number, plantId: number, photoUrl: string, healthScore: number, comparisonResult: string, dateTaken: Date) {
-        this.id = id;
-        this.plantId = plantId;
-        this.photoUrl = photoUrl;
-        this.healthScore = healthScore;
-        this.comparisonResult = comparisonResult;
-        this.dateTaken = dateTaken;
-        this.analysisComplete = false;
+    comparisonResult: {
+        type: String,
+        required: true,
+    },
+    dateTaken: {
+     type: Date,
     }
+  },
+  { timestamps: true }
+);
+ 
 
-
-}
+export const PlantPhotos = model<IPlantPhotos>("PlantPhotos", PlantPhotosSchema);

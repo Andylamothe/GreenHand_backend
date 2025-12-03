@@ -1,33 +1,38 @@
-//TODO faire les relations entre les models via les methodes appropriées
-// Pour l'instant, juste les classes de base avec les attributs et constructeurs
+import { Schema, model } from "mongoose";
+import { IPlants } from "../interfaces/IPlants"
+import { regex } from "../utils/regex";
 
-import { Category } from './Category.js';
-import { PlantPhotos } from './PlantPhotos.js';
-import type { IPlants } from '../interfaces/IPlants.js';
+ 
+const PlantSchema = new Schema<IPlants>(
+  {
+    name: {
+      type: String,
+      required: true,
+      match: [regex.nameRegex, "Le nom contient des caractères invalides"],
+      trim: true,
+    },
+    categoryId: {
+        type: Schema.Types.ObjectId,
+      required: true,
+    },
+    inventoryId: {
+        type: Schema.Types.ObjectId,
+      required: true,
+    },
+    description: {
+        type: String,
+        trim: true,
+    },
+    creationDate: {
+     type: Date,
+    },
+    lastWatered: { 
+        type: Date,
 
-export class Plants implements IPlants {
-    plantId: number;
-    name: string;
-    categoryId: number; // Référence à la catégorie
-    description: string;
-    photos: PlantPhotos[];
-    inventoryId: number; // Référence à l'inventaire
-    plantedDate: Date;
-    lastWatered?: Date;
-    notes?: string;
-  
+       }
+  },
+  { timestamps: true }
+);
+ 
 
-    constructor(plantId: number, name: string, categoryId: number, description: string, inventoryId: number) {
-        this.plantId = plantId;
-        this.name = name;
-        this.categoryId = categoryId;
-        this.description = description;
-        this.inventoryId = inventoryId;
-        this.photos = [];
-        this.plantedDate = new Date();
-    }
-
-
-
-    
-}
+export const Plant = model<IPlants>("Plant", PlantSchema);

@@ -1,28 +1,36 @@
-//TODO faire les relations entre les models via les methodes appropriées
-// Pour l'instant, juste les classes de base avec les attributs et constructeurs
+import { Schema, model } from "mongoose";
+import { ICategory } from "../interfaces/ICategory"
+import { regex } from "../utils/regex";
 
-import type { ICategory } from '../interfaces/ICategory.js';
+ 
+const CategorySchema = new Schema<ICategory>(
+  {
+    name: {
+      type: String,
+      required: true,
+      unique: true,
+      match: [regex.nameRegex, "Le nom contient des caractères invalides"],
+      trim: true,
+    },
+    description: {
+      type: String,
+      required: true,
+      unique: true,
+      trim: true,
+    },
+    initialAdvice: {
+      type: [String],
+      required: true,
+    },
 
-export class Category implements ICategory {
-    categoryId: number;
-    name: string;
-    description: string;
-    initialAdvice: string[];
-    categoryIcon: string;
-    wateringFrequency: number; // Fréquence d'arrosage en jours
-    sunlightRequirement: 'low' | 'medium' | 'high';
-    difficultyLevel: 'easy' | 'medium' | 'hard';
+    categoryIcon: {
+        type: String,
+        required: true,
+        trim: true,
+    },
+  },
+  { timestamps: true }
+);
+ 
 
-    constructor(categoryId: number, name: string, description: string, initialAdvice: string[], categoryIcon: string, wateringFrequency: number = 7, sunlightRequirement: 'low' | 'medium' | 'high' = 'medium', difficultyLevel: 'easy' | 'medium' | 'hard' = 'medium') {
-        this.categoryId = categoryId;
-        this.name = name;
-        this.description = description;
-        this.initialAdvice = initialAdvice;
-        this.categoryIcon = categoryIcon;
-        this.wateringFrequency = wateringFrequency;
-        this.sunlightRequirement = sunlightRequirement;
-        this.difficultyLevel = difficultyLevel;
-    }
-
-
-}
+export const Category = model<ICategory>("Category", CategorySchema);
