@@ -1,4 +1,3 @@
-// TODO : faire les regex ici et les rajouter dans les models quand fini
 import { z } from "zod";
 
 export const regex = {
