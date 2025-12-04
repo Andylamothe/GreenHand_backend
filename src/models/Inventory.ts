@@ -9,10 +9,10 @@ const InventorySchema = new Schema<IInventory>(
       required : true,
      
     },
-    quantity: {
-      type: Number,
+  //   quantity: {
+  //     type: Number,
     
-  },
+  // },
 },
 
   { timestamps: true }
