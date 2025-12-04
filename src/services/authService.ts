@@ -1,4 +1,5 @@
 import { User } from "../models/Users";
+import { Inventory } from "../models/Inventory";
 import { HttpException } from "../utils/http-exception";
 import { comparePassword } from "../utils/bcryptHelp";
 import { generateToken } from "../utils/jwtHelp";
@@ -40,6 +41,11 @@ export class AuthService {
         role: adminExists ? "user" : "admin",
     });
 
+    // auto → On crée l'inventaire vide
+    const inventory = await Inventory.create({
+      userId: created._id,
+    });
+
     // retour sans password
     return {
       id: created._id,
@@ -47,6 +53,7 @@ export class AuthService {
       username: created.username,
       location: created.location,
       role: created.role,
+      inventoryId: inventory._id,
     };
   }
 
@@ -65,11 +72,15 @@ export class AuthService {
     if (!ok) 
         throw new HttpException(401, "Identifiants invalides");
 
+    
+
     const token = generateToken({
       id: user._id,
       role: user.role,
       email: user.email,
     });
+
+    const inventory = await Inventory.findOne({ userId: user._id });
 
     return {
       token,
@@ -79,6 +90,7 @@ export class AuthService {
         username: user.username,
         role: user.role,
         location : user.location,
+        inventoryId: inventory?._id,
       }, 
     };
   }
