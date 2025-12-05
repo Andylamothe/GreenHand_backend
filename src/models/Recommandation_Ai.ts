@@ -35,4 +35,4 @@ const IRecommendationAiSchema = new Schema<IRecommendationAi>(
 );
  
 
-export const PlantPhotos = model<IRecommendationAi>("PlantPhotos", IRecommendationAiSchema);
+export const RecommendationAi= model<IRecommendationAi>("RecommendationAi", IRecommendationAiSchema);

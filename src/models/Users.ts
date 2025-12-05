@@ -35,6 +35,10 @@ const UserSchema = new Schema<IUsers>(
         type: String,
         required: true,
     },
+    role: {
+        type: String,
+        enum: ["admin", "user"],
+    },
     createdAt: {
      type: Date,
     }
