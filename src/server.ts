@@ -12,10 +12,10 @@ console.log("ENV:", process.env.NODE_ENV);
 console.log("Config chargée:", config.util.getEnv("NODE_ENV"));
 
 import app from "./app";
-import fs from "fs";
-import path from "path";
-import http from "http";
-import https from "https";
+// import fs from "fs";
+// import path from "path";
+// import http from "http";
+// import https from "https";
 import {connectDB} from "./data/connectDB.ts"
 
 // -----------------------------------------------------------
