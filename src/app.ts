@@ -1,25 +1,27 @@
 import express from "express";
 import dotenv from "dotenv";
-import {connectDB} from "./data/connectDB.ts";
 import authRoute from "./routes/authRoute.ts";
 import inventoryRoute from "./routes/inventoryRoute.ts";
 import recommendationRoutes from "./routes/recommendationRoutes";
+import plantRoute from "./routes/plantRoute.ts";
+import cors from "cors";
+import config from "config";
+
 
 dotenv.config();
 const app = express();
-const port = 3000;
 
-app.use(express.json());
+app.use(express.json()); 
 
-//------------ CONNEXION MONGODB ATLAS ------------//
-connectDB();
+// // --- Configuration CORS --- //
+    app.use(cors({
+      origin: config.get<string[]>("security.cors.origins"),
+      methods: ["GET", "POST", "PUT", "DELETE"],
+      allowedHeaders: ["Content-Type", "Authorization"]
+    }));
 
 //------------ ROUTES ------------//
 app.use('/api', recommendationRoutes);
-
-app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
-});
 
 // -----------------------------------------------------------
 // ROUTES
@@ -34,6 +36,10 @@ app.use("/api/auth", authRoute);
 
 // Inventory
 app.use("/api/inventory", inventoryRoute);
+
+//plant
+
+app.use("/api", plantRoute);
 
 
 export default app;

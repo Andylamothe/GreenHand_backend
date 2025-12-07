@@ -6,23 +6,24 @@
 // ===========================================================
 import "dotenv/config";
 import config from "config";
+import app from "./app";
+import fs from "fs";
+import path from "path";
+import http from "http";
+import https from "https";
+import {connectDB} from "./data/connectDB.ts"
 
 // Debug rapide : voir l'environnement courant
 console.log("ENV:", process.env.NODE_ENV);
-console.log("Config chargée:", config.util.getEnv("NODE_ENV"));
+console.log("HTTPS ENABLED =", config.get("server.https.enabled"));
+console.log("Redirect HTTP→HTTPS =", config.get("server.https.redirectAllHttpToHttps"));
 
-import app from "./app";
-// import fs from "fs";
-// import path from "path";
-// import http from "http";
-// import https from "https";
-import {connectDB} from "./data/connectDB.ts"
 
 // -----------------------------------------------------------
 // CONFIG SERVEUR (lue depuis config/*)
 // -----------------------------------------------------------
 // Ports + options HTTPS
-const httpPort = 3000;
+const httpPort = config.get<number>("server.http.port");
 const httpsPort = config.get<number>("server.https.port");
 const enableHttps = config.get<boolean>("server.https.enabled");
 const redirectAll = config.get<boolean>("server.https.redirectAllHttpToHttps");
