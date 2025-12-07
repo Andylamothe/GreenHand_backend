@@ -33,6 +33,7 @@ export const userZodSchema = z.object({
       regex.passwordRegex,
       "le mot de passe est invalide (8+ caractères, majuscule, chiffre, symbole)"
     ),
+    
 });
 
 export const categoryZodSchema = z.object({

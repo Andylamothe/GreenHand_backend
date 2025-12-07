@@ -12,15 +12,20 @@ const CategorySchema = new Schema<ICategory>(
       match: [regex.nameRegex, "Le nom contient des caractères invalides"],
       trim: true,
     },
-    description: {
+    growth: {
       type: String,
-      required: true,
-      unique: true,
-      trim: true,
     },
-    initialAdvice: {
-      type: [String],
-      required: true,
+    soil: {
+        type: String,
+    },
+    sunlight: {
+     type: String,
+    },
+      watering: {
+     type: String,
+    },
+    fertilizationType: {
+     type: String,
     },
 
     categoryIcon: {

@@ -6,6 +6,7 @@ export interface IUsers extends Document {
     email: string;
     password: string;
     location: string;
+    role : "admin" | "user";
     createdAt?: Date;
 }
 
