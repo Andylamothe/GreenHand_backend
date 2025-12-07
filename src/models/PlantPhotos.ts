@@ -7,7 +7,7 @@ import { Document, Types } from "mongoose";
 const PlantPhotosSchema = new Schema<IPlantPhotos>(
   {
     plantId: {
-      type: Types.ObjectId,
+      type: Schema.Types.ObjectId,
       required: true,
     },
     photoUrl: {

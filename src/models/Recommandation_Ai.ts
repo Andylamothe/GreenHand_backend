@@ -8,7 +8,7 @@ import { IRecommendationAi } from "../interfaces/IRecommendationAi";
 const IRecommendationAiSchema = new Schema<IRecommendationAi>(
   {
     plantId: {
-      type: Types.ObjectId,
+      type: Schema.Types.ObjectId,
       required: true,
     },
     recommendationType: {
@@ -35,4 +35,4 @@ const IRecommendationAiSchema = new Schema<IRecommendationAi>(
 );
  
 
-export const PlantPhotos = model<IRecommendationAi>("PlantPhotos", IRecommendationAiSchema);
+export const RecommendationAi = model<IRecommendationAi>("RecommendationAi", IRecommendationAiSchema);

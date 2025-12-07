@@ -1,6 +1,8 @@
 import { Schema, model } from "mongoose";
 import { IUsers } from "../interfaces/IUsers"
 import { regex } from "../utils/regex";
+import { comparePassword } from "../utils/bcryptHelp";
+import { hashPasswordMiddleware } from "../middlewares/user.mw";
 
  
 const UserSchema = new Schema<IUsers>(
@@ -47,5 +49,12 @@ const UserSchema = new Schema<IUsers>(
   { timestamps: true }
 );
  
+// ajoute le mw de haach avant chaque save
+hashPasswordMiddleware(UserSchema);
+
+// méthode  pour comparer mdp
+UserSchema.methods.comparePassword = function (candidatePassword: string) {
+  return comparePassword(candidatePassword, this.password);
+};
 
 export const User = model<IUsers>("User", UserSchema);

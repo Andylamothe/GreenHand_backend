@@ -2,11 +2,15 @@ import { Request, Response, NextFunction } from "express";
 import { AuthService } from "../services/authService";
 import { logger } from "../utils/logger";
 import { HttpException } from "../utils/http-exception";
+import { InventoryService } from "../services/inventoryService";
+
 
 // -----------------------------------------------------------
 // INSTANCIATION DES SERVICES
 // -----------------------------------------------------------
 const authService = new AuthService();
+const inventoryService = new InventoryService();
+
 
 // -----------------------------------------------------------
 // CONTROLLER: AUTH
@@ -54,6 +58,9 @@ export class AuthController {
 
       // Le service vérifie email + password et génère le token
       const { token, user } = await authService.login(email, password);
+
+       //créer automatiquement l’inventaire si inexistant
+      await inventoryService.ensureInventory(String(user.id));
 
       logger.info(`Connexion réussie : ${email}`);
       res.status(200).json({ success: true, token, user });

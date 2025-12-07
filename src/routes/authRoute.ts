@@ -21,19 +21,19 @@ const authController = new AuthController();
 
 
 // -----------------------------------------------------------
-// POST /api/v2/auth/register
+// POST /api/auth/register
 // - Crée un compte utilisateur
 // -----------------------------------------------------------
 router.post("/register", validateRegister, authController.register);
 
 // -----------------------------------------------------------
-// POST /api/v2/auth/login
+// POST /api/auth/login
 // - Authentifie l’utilisateur ; renvoie un JWT
 // -----------------------------------------------------------
 router.post("/login", validateLogin, authController.login);
 
 // -----------------------------------------------------------
-// PATCH /api/v2/auth/:id/promote
+// PATCH /api/auth/:id/promote
 // - Promotion d’un utilisateur en admin
 // - Protégée: il faut être admin
 // -----------------------------------------------------------

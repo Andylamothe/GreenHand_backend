@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import {connectDB} from "./data/connectDB.ts";
 import authRoute from "./routes/authRoute.ts";
+import inventoryRoute from "./routes/inventoryRoute.ts";
 
 dotenv.config();
 const app = express();
@@ -25,7 +26,10 @@ app.get("/", (req, res) => {
 });
 
 // Auth 
-app.use("/api/v2/auth", authRoute);
+app.use("/api/auth", authRoute);
+
+// Inventory
+app.use("/api/inventory", inventoryRoute);
 
 
 export default app;
