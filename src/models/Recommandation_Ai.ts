@@ -6,12 +6,12 @@ import { IRecommendationAi } from "../interfaces/IRecommendationAi";
 const IRecommendationAiSchema = new Schema<IRecommendationAi>(
   {
     userId: {
-      type: Types.ObjectId,
+      type: Schema.Types.ObjectId,
       required: true,
       ref: 'Users',
     },
     plantId: {
-      type: Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: 'Plants',
     },
     userQuery: {

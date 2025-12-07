@@ -19,7 +19,8 @@ yarn-error.log*
 config/
 
 # Certificats / clés locales
-cert/*.pem
+*.pem
+cert/*
 
 # Postman export
 postman/*.json
