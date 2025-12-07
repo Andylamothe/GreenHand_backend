@@ -6,7 +6,7 @@ export interface IPlants extends Document{
     categoryId: Types.ObjectId;
     inventoryId: Types.ObjectId;
     plantCondition?: number;
-    description: string;
+    description?: string;
     creationDate: Date;
     lastWatered?: Date;
     notes?: string;

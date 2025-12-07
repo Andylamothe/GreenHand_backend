@@ -23,23 +23,23 @@ import {connectDB} from "./data/connectDB.ts"
 // -----------------------------------------------------------
 // Ports + options HTTPS
 const httpPort = 3000;
-// const httpsPort = config.get<number>("server.https.port");
-// const enableHttps = config.get<boolean>("server.https.enabled");
-// const redirectAll = config.get<boolean>("server.https.redirectAllHttpToHttps");
+const httpsPort = config.get<number>("server.https.port");
+const enableHttps = config.get<boolean>("server.https.enabled");
+const redirectAll = config.get<boolean>("server.https.redirectAllHttpToHttps");
 
 // -----------------------------------------------------------
 // CERTIFICATS SSL (si HTTPS activé)
 // - On lit les chemins depuis la config et on charge key/cert
 // -----------------------------------------------------------
-// let sslOptions: any = {};
-// if (enableHttps) {
-//   const keyPath = path.resolve(config.get<string>("ssl.keyPath"));
-//   const certPath = path.resolve(config.get<string>("ssl.certPath"));
-//   sslOptions = {
-//     key: fs.readFileSync(keyPath),
-//     cert: fs.readFileSync(certPath),
-//   };
-// }
+let sslOptions: any = {};
+if (enableHttps) {
+  const keyPath = path.resolve(config.get<string>("ssl.keyPath"));
+  const certPath = path.resolve(config.get<string>("ssl.certPath"));
+  sslOptions = {
+    key: fs.readFileSync(keyPath),
+    cert: fs.readFileSync(certPath),
+  };
+}
 
 // -----------------------------------------------------------
 // FONCTION DE DÉMARRAGE
@@ -56,37 +56,37 @@ const startServer = async () => {
     await connectDB();
 
     // // 2) HTTPS (si activé dans la config)
-    // if (enableHttps) {
-    //   https.createServer(sslOptions, app).listen(httpsPort, () => {
-    //     console.log(
-    //       `Serveur HTTPS lancé sur https://localhost:${httpsPort}`
-    //     );
-    //   });
-    // }
+    if (enableHttps) {
+      https.createServer(sslOptions, app).listen(httpsPort, () => {
+        console.log(
+          `Serveur HTTPS lancé sur https://localhost:${httpsPort}`
+        );
+      });
+    }
 
-    // // 3) HTTP
-    // if (redirectAll && enableHttps) {
-    //   // -----------------------------------------------------
-    //   // MODE REDIRECTION : tout le HTTP renvoie vers HTTPS
-    //   // -----------------------------------------------------
-    //   http
-    //     .createServer((req, res) => {
-    //       res.writeHead(301, {
-    //         Location: `https://localhost:${httpsPort}${req.url}`,
-    //       });
-    //       res.end();
-    //     })
-    //     .listen(httpPort, () => {
-    //       console.log(`Redirection HTTP → HTTPS sur le port ${httpPort}`);
-    //     });
-    // } else {
+    // 3) HTTP
+    if (redirectAll && enableHttps) {
+      // -----------------------------------------------------
+      // MODE REDIRECTION : tout le HTTP renvoie vers HTTPS
+      // -----------------------------------------------------
+      http
+        .createServer((req, res) => {
+          res.writeHead(301, {
+            Location: `https://localhost:${httpsPort}${req.url}`,
+          });
+          res.end();
+        })
+        .listen(httpPort, () => {
+          console.log(`Redirection HTTP → HTTPS sur le port ${httpPort}`);
+        });
+    } else {
       // -----------------------------------------------------
       // MODE HTTP NORMAL : on lance l’API en HTTP classique
       // -----------------------------------------------------
       app.listen(httpPort, () => {
         console.log(`Serveur lancé sur http://localhost:${httpPort}`);
       });
-    // }
+    }
   } catch (err) {
 
     console.error("Impossible de démarrer le serveur :", err);

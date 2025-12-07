@@ -1,34 +1,46 @@
 import { Schema, model } from "mongoose";
-import { IUsers } from "../interfaces/IUsers"
-import { IPlantPhotos } from "../interfaces/IPlantPhotos";
 import { Document, Types } from "mongoose";
 import { IRecommendationAi } from "../interfaces/IRecommendationAi";
 
  
 const IRecommendationAiSchema = new Schema<IRecommendationAi>(
   {
+    userId: {
+      type: Types.ObjectId,
+      required: true,
+      ref: 'Users',
+    },
     plantId: {
-      type: Schema.Types.ObjectId,
+      type: Types.ObjectId,
+      ref: 'Plants',
+    },
+    userQuery: {
+      type: String,
+      required: true,
+    },
+    aiResponse: {
+      type: String,
       required: true,
     },
     recommendationType: {
       type: String,
       enum: ['watering', 'fertilizing', 'pruning', 'general','health'],
     },
-
     priority: {
         type: String,
         enum: ['low', 'medium', 'high'],
-        required: true,
     },
     dateGenerated: {
      type: Date,
+     default: Date.now,
     },
-      isRead: {
+    isRead: {
      type: Boolean,
+     default: false,
     },
-     isApplied: {
+    isApplied: {
      type: Boolean,
+     default: false,
     },
   },
   { timestamps: true }
