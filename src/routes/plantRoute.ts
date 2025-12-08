@@ -17,5 +17,6 @@ const plantController = new PlantController();
 router.use(authMiddleware);
 
 router.patch("/plants/:id", plantController.updatePlant);
+router.get("/plant/:id", plantController.getPlant);
 
 export default router;
