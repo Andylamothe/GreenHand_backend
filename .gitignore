@@ -42,5 +42,7 @@ build/
 # Configurations système
 *.swp
 
+*.csr
+
 # Configuration base de données
 .env
