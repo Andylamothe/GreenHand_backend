@@ -2,7 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import authRoute from "./routes/authRoute.ts";
 import inventoryRoute from "./routes/inventoryRoute.ts";
-import recommendationRoutes from "./routes/recommendationRoutes";
+import recommendationRoutes from "./routes/recommendationRoutes.ts";
 import plantRoute from "./routes/plantRoute.ts";
 import cors from "cors";
 import config from "config";
@@ -32,12 +32,8 @@ app.use(express.urlencoded({ limit: "10mb", extended: true }));
     
 
 //------------ ROUTES ------------//
-app.use('/api', recommendationRoutes);
 
-// -----------------------------------------------------------
-// ROUTES
-// -----------------------------------------------------------
-
+// Home
 app.get("/", (req, res) => {
   res.send(" Serveur actif ! Bienvenue sur GreenHand ");
 });
@@ -47,6 +43,9 @@ app.use("/api/auth", authRoute);
 
 // Inventory
 app.use("/api/inventory", inventoryRoute);
+
+// Recommendations
+app.use("/api/recommendations", recommendationRoutes);
 
 //plant
 app.use("/api", plantRoute);

@@ -26,15 +26,18 @@ const { __mocks } = require('../../src/models/Recommandation_Ai');
 const { saveMock, findMock, sortMock } = __mocks;
 
 describe('RecommendationAiService', () => {
+  let service: RecommendationAiService;
+
   beforeEach(() => {
     jest.clearAllMocks();
+    service = new RecommendationAiService();
   });
 
   it('saveRecommendation should persist and return saved document', async () => {
     const mockSaved = { _id: 'saved-id', userQuery: 'How to water?', aiResponse: 'Water daily.' };
     saveMock.mockResolvedValueOnce(mockSaved);
 
-    const result = await RecommendationAiService.saveRecommendation(
+    const result = await service.saveRecommendation(
       '507f1f77bcf86cd799439011',
       'How to water?',
       'Water daily.',
@@ -54,7 +57,7 @@ describe('RecommendationAiService', () => {
     ];
     sortMock.mockResolvedValueOnce(mockList);
 
-    const result = await RecommendationAiService.getRecommendationsByUserId('507f1f77bcf86cd799439011');
+    const result = await service.getRecommendationsByUserId('507f1f77bcf86cd799439011');
 
     expect(findMock).toHaveBeenCalledWith({ userId: expect.any(Types.ObjectId) });
     expect(sortMock).toHaveBeenCalledWith({ dateGenerated: -1 });
