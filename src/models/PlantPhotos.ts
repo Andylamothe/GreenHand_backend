@@ -19,8 +19,7 @@ const PlantPhotosSchema = new Schema<IPlantPhotos>(
     },
 
     comparisonResult: {
-        type: String,
-        required: true,
+        type: String
     },
     dateTaken: {
      type: Date,
