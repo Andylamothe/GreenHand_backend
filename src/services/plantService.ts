@@ -22,6 +22,16 @@ export class PlantService {
     }
 
     return updated;
+  };
+
+  async getPlant(plantId: string) {
+    const plant = await Plant.findById(plantId);
+
+    if (!plant) {
+      throw new HttpException(404, "Plante introuvable");
+    }
+
+    return plant;
   }
 
    async getPlantDetails(plantId: string) {
