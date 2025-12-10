@@ -1,16 +1,18 @@
 import { RecommendationAi } from "../models/Recommandation_Ai";
 import { IRecommendationAi } from "../interfaces/IRecommendationAi";
+import { HttpException } from "../utils/http-exception";
 import { Types } from "mongoose";
 
-/* Méthodes pour sauvegarder et récupérer les recommandations IA
-    dans la base de donnée MongoDB
-*/
+// ===========================================================
+// RECOMMENDATION AI SERVICE
+// - Sauvegarde et récupération des recommandations IA
+// ===========================================================
 
 export class RecommendationAiService {
-  /**
-   * Sauvegarder une recommandation IA dans la base de données
-   */
-  static async saveRecommendation(
+  // ---------------------------------------------------------
+  // Sauvegarder une recommandation IA
+  // ---------------------------------------------------------
+  async saveRecommendation(
     userId: string,
     userQuery: string,
     aiResponse: string,
@@ -19,6 +21,10 @@ export class RecommendationAiService {
     plantId?: string
   ): Promise<IRecommendationAi> {
     try {
+      if (!userId || !userQuery || !aiResponse) {
+        throw new HttpException(400, "userId, userQuery et aiResponse sont requis");
+      }
+
       const recommendation = new RecommendationAi({
         userId: new Types.ObjectId(userId),
         userQuery,
@@ -34,22 +40,32 @@ export class RecommendationAiService {
       const savedRecommendation = await recommendation.save();
       return savedRecommendation;
     } catch (error) {
-      throw new Error(`Erreur lors de la sauvegarde de la recommandation: ${error}`);
+      if (error instanceof HttpException) {
+        throw error;
+      }
+      throw new HttpException(500, "Erreur lors de la sauvegarde de la recommandation");
     }
   }
 
-  /**
-   * Récupérer toutes les recommandations d'un utilisateur
-   */
-  static async getRecommendationsByUserId(userId: string): Promise<IRecommendationAi[]> {
+  // ---------------------------------------------------------
+  // Récupérer toutes les recommandations d'un utilisateur
+  // ---------------------------------------------------------
+  async getRecommendationsByUserId(userId: string): Promise<IRecommendationAi[]> {
     try {
+      if (!userId) {
+        throw new HttpException(400, "userId est requis");
+      }
+
       const recommendations = await RecommendationAi.find({
         userId: new Types.ObjectId(userId),
       }).sort({ dateGenerated: -1 });
 
       return recommendations;
     } catch (error) {
-      throw new Error(`Erreur lors de la récupération des recommandations: ${error}`);
+      if (error instanceof HttpException) {
+        throw error;
+      }
+      throw new HttpException(500, "Erreur lors de la récupération des recommandations");
     }
   }
 }

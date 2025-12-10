@@ -84,9 +84,17 @@ const startServer = async () => {
       // -----------------------------------------------------
       // MODE HTTP NORMAL : on lance l’API en HTTP classique
       // -----------------------------------------------------
-      app.listen(httpPort, () => {
-        console.log(`Serveur lancé sur http://localhost:${httpPort}`);
+      // app.listen(httpPort, () => {
+      //   console.log(`Serveur lancé sur http://localhost:${httpPort}`);
+      // });
+      app.listen(httpPort, "0.0.0.0", () => {
+        console.log(`Serveur lancé sur http://0.0.0.0:${httpPort}`);
       });
+
+      /// pour acces reseau local ///
+      //  app.listen(httpPort, "0.0.0.0", () => {
+      //   console.log(`Serveur lancé sur http://192.168.68.105:${httpPort}`);
+      // });
     }
   } catch (err) {
 

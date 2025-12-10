@@ -5,7 +5,7 @@ export interface IPlantPhotos extends Document{
     plantId: Types.ObjectId;
     photoUrl: string;
     healthScore: number;
-    comparisonResult: string;
+    comparisonResult?: string;
     dateTaken: Date;
     // analysisComplete: boolean; ??
 }
