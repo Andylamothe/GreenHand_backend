@@ -42,7 +42,14 @@ describe('UserService', () => {
       const user = await service.getById('507f1f77bcf86cd799439011');
 
       expect(findByIdMock).toHaveBeenCalledWith('507f1f77bcf86cd799439011');
-      expect(user).toEqual({ id: rawDoc._id, email: rawDoc.email, username: rawDoc.username, location: rawDoc.location, role: rawDoc.role });
+      expect(user).toEqual({ 
+        id: rawDoc._id, 
+        _id: rawDoc._id,
+        email: rawDoc.email, 
+        username: rawDoc.username, 
+        location: rawDoc.location, 
+        role: rawDoc.role 
+      });
       expect((user as any).password).toBeUndefined();
     });
 
@@ -60,6 +67,7 @@ describe('UserService', () => {
         username: 'john',
         location: 'Old',
         role: 'user',
+        createdAt: new Date('2024-01-01'),
         save: jest.fn().mockResolvedValue(undefined),
       };
       findByIdMock.mockResolvedValueOnce(savedDoc);
@@ -76,16 +84,47 @@ describe('UserService', () => {
         username: 'johnny',
         location: 'Quebec',
         role: savedDoc.role,
+        createdAt: savedDoc.createdAt,
       });
     });
 
+    it('met à jour le password avec le nouveau mot de passe', async () => {
+      const savedDoc: any = {
+        _id: '507f1f77bcf86cd799439011',
+        email: 'john@doe.com',
+        username: 'john',
+        location: 'Montreal',
+        role: 'user',
+        password: 'oldhashedpwd',
+        createdAt: new Date(),
+        save: jest.fn().mockResolvedValue(undefined),
+      };
+      findByIdMock.mockResolvedValueOnce(savedDoc);
+
+      const updated = await service.updateUser(savedDoc._id, { password: 'newPassword123' });
+
+      expect(savedDoc.password).toBe('newPassword123');
+      expect(savedDoc.save).toHaveBeenCalledTimes(1);
+      expect(updated.id).toBe(savedDoc._id);
+    });
+
     it('rejette si aucun champ à mettre à jour', async () => {
-      await expect(service.updateUser('id', {} as any)).rejects.toThrow('Aucun champ à mettre à jour');
+      try {
+        await service.updateUser('id', {} as any);
+        fail('Devrait lever une exception');
+      } catch (e: any) {
+        expect(e.message).toBe('Aucun champ à mettre à jour');
+      }
     });
 
     it('lance 404 si utilisateur introuvable', async () => {
       findByIdMock.mockResolvedValueOnce(null);
-      await expect(service.updateUser('id', { username: 'x' })).rejects.toThrow('Utilisateur introuvable');
+      try {
+        await service.updateUser('id', { username: 'x' });
+        fail('Devrait lever une exception');
+      } catch (e: any) {
+        expect(e.message).toBe('Utilisateur introuvable');
+      }
     });
   });
 
