@@ -17,11 +17,11 @@ const plantController = new PlantController();
 
 router.use(authMiddleware);
 
-router.patch("/plants/:id", plantController.updatePlant);
-router.get("/plant/:id", plantController.getPlant);
-router.get("/plants/:id/details", plantController.getPlantDetails);
-router.post("/plants/:id/photos", plantController.addPhoto);
-router.delete("/plants/:id/photos/:photoId", plantController.deletePhoto);
+router.patch("/plants/:id", authMiddleware, plantController.updatePlant);
+router.get("/plant/:id", authMiddleware, plantController.getPlant);
+router.get("/plants/:id/details", authMiddleware, plantController.getPlantDetails);
+router.post("/plants/:id/photos", authMiddleware, plantController.addPhoto);
+router.delete("/plants/:id/photos/:photoId", authMiddleware, plantController.deletePhoto);
 
 
 

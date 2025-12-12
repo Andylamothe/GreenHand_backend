@@ -1,0 +1,388 @@
+{
+  "info": {
+    "_postman_id": "d6b6f4b6-6a77-4b4a-9c7d-9b2f2e5e2c11",
+    "name": "GreenHand API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Collection Postman pour les endpoints GreenHand. Utilisez {{base_url}} et {{token}}."
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Root",
+      "item": [
+        {
+          "name": "GET /",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                ""
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Docs",
+      "item": [
+        {
+          "name": "Swagger UI /api/docs",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/docs",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "docs"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "POST /api/auth/register",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"john@example.com\",\n  \"username\": \"john\",\n  \"password\": \"Password123!\",\n  \"location\": \"Montreal\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/register",
+              "host": ["{{base_url}}"],
+              "path": ["api", "auth", "register"]
+            }
+          }
+        },
+        {
+          "name": "POST /api/auth/login",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"john@example.com\",\n  \"password\": \"Password123!\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/login",
+              "host": ["{{base_url}}"],
+              "path": ["api", "auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "PATCH /api/auth/promote/:id",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/auth/promote/:id",
+              "host": ["{{base_url}}"],
+              "path": ["api", "auth", "promote", ":id"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "GET /api/users/me",
+          "request": {
+            "method": "GET",
+            "header": [ { "key": "Authorization", "value": "Bearer {{token}}" } ],
+            "url": {
+              "raw": "{{base_url}}/api/users/me",
+              "host": ["{{base_url}}"],
+              "path": ["api", "users", "me"]
+            }
+          }
+        },
+        {
+          "name": "PATCH /api/users/me",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"jane\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/users/me",
+              "host": ["{{base_url}}"],
+              "path": ["api", "users", "me"]
+            }
+          }
+        },
+        {
+          "name": "DELETE /api/users/me",
+          "request": {
+            "method": "DELETE",
+            "header": [ { "key": "Authorization", "value": "Bearer {{token}}" } ],
+            "url": {
+              "raw": "{{base_url}}/api/users/me",
+              "host": ["{{base_url}}"],
+              "path": ["api", "users", "me"]
+            }
+          }
+        },
+        {
+          "name": "POST /api/users/logout",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Authorization", "value": "Bearer {{token}}" } ],
+            "url": {
+              "raw": "{{base_url}}/api/users/logout",
+              "host": ["{{base_url}}"],
+              "path": ["api", "users", "logout"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Inventory",
+      "item": [
+        {
+          "name": "GET /api/inventory/me",
+          "request": {
+            "method": "GET",
+            "header": [ { "key": "Authorization", "value": "Bearer {{token}}" } ],
+            "url": {
+              "raw": "{{base_url}}/api/inventory/me",
+              "host": ["{{base_url}}"],
+              "path": ["api", "inventory", "me"]
+            }
+          }
+        },
+        {
+          "name": "GET /api/inventory/me/plants",
+          "request": {
+            "method": "GET",
+            "header": [ { "key": "Authorization", "value": "Bearer {{token}}" } ],
+            "url": {
+              "raw": "{{base_url}}/api/inventory/me/plants",
+              "host": ["{{base_url}}"],
+              "path": ["api", "inventory", "me", "plants"]
+            }
+          }
+        },
+        {
+          "name": "POST /api/inventory/me/plants",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"plantId\": \"<plantId>\",\n  \"nickname\": \"Mon ficus\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/inventory/me/plants",
+              "host": ["{{base_url}}"],
+              "path": ["api", "inventory", "me", "plants"]
+            }
+          }
+        },
+        {
+          "name": "GET /api/inventory/search",
+          "request": {
+            "method": "GET",
+            "header": [ { "key": "Authorization", "value": "Bearer {{token}}" } ],
+            "url": {
+              "raw": "{{base_url}}/api/inventory/search",
+              "host": ["{{base_url}}"],
+              "path": ["api", "inventory", "search"]
+            }
+          }
+        },
+        {
+          "name": "GET /api/inventory/filter",
+          "request": {
+            "method": "GET",
+            "header": [ { "key": "Authorization", "value": "Bearer {{token}}" } ],
+            "url": {
+              "raw": "{{base_url}}/api/inventory/filter",
+              "host": ["{{base_url}}"],
+              "path": ["api", "inventory", "filter"]
+            }
+          }
+        },
+        {
+          "name": "DELETE /api/inventory/plants/:id",
+          "request": {
+            "method": "DELETE",
+            "header": [ { "key": "Authorization", "value": "Bearer {{token}}" } ],
+            "url": {
+              "raw": "{{base_url}}/api/inventory/plants/:id",
+              "host": ["{{base_url}}"],
+              "path": ["api", "inventory", "plants", ":id"]
+            }
+          }
+        },
+        {
+          "name": "DELETE /api/inventory/deleteInventory/:userId (admin)",
+          "request": {
+            "method": "DELETE",
+            "header": [ { "key": "Authorization", "value": "Bearer {{token}}" } ],
+            "url": {
+              "raw": "{{base_url}}/api/inventory/deleteInventory/:userId",
+              "host": ["{{base_url}}"],
+              "path": ["api", "inventory", "deleteInventory", ":userId"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Plants",
+      "item": [
+        {
+          "name": "PATCH /api/plants/:id",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nickname\": \"Mon cactus\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/plants/:id",
+              "host": ["{{base_url}}"],
+              "path": ["api", "plants", ":id"]
+            }
+          }
+        },
+        {
+          "name": "GET /api/plant/:id",
+          "request": {
+            "method": "GET",
+            "header": [ { "key": "Authorization", "value": "Bearer {{token}}" } ],
+            "url": {
+              "raw": "{{base_url}}/api/plant/:id",
+              "host": ["{{base_url}}"],
+              "path": ["api", "plant", ":id"]
+            }
+          }
+        },
+        {
+          "name": "GET /api/plants/:id/details",
+          "request": {
+            "method": "GET",
+            "header": [ { "key": "Authorization", "value": "Bearer {{token}}" } ],
+            "url": {
+              "raw": "{{base_url}}/api/plants/:id/details",
+              "host": ["{{base_url}}"],
+              "path": ["api", "plants", ":id", "details"]
+            }
+          }
+        },
+        {
+          "name": "POST /api/plants/:id/photos",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"base64\": \"data:image/png;base64,iVBORw0KGgo...\",\n  \"healthScore\": 85,\n  \"comparisonResult\": \"healthy\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/plants/:id/photos",
+              "host": ["{{base_url}}"],
+              "path": ["api", "plants", ":id", "photos"]
+            }
+          }
+        },
+        {
+          "name": "DELETE /api/plants/:id/photos/:photoId",
+          "request": {
+            "method": "DELETE",
+            "header": [ { "key": "Authorization", "value": "Bearer {{token}}" } ],
+            "url": {
+              "raw": "{{base_url}}/api/plants/:id/photos/:photoId",
+              "host": ["{{base_url}}"],
+              "path": ["api", "plants", ":id", "photos", ":photoId"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Recommendations",
+      "item": [
+        {
+          "name": "POST /api/recommendations",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": \"<userId>\",\n  \"plantId\": \"<plantId>\",\n  \"advice\": \"Arroser une fois par semaine\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/recommendations",
+              "host": ["{{base_url}}"],
+              "path": ["api", "recommendations"]
+            }
+          }
+        },
+        {
+          "name": "GET /api/recommendations/:userId",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/recommendations/:userId",
+              "host": ["{{base_url}}"],
+              "path": ["api", "recommendations", ":userId"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
