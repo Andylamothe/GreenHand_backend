@@ -49,7 +49,14 @@ export class RecommendationAiController {
     try {
       const { userId } = req.params;
 
-      const recommendations = await recommendationAiService.getRecommendationsByUserId(String(userId));
+      if (!userId) {
+        return res.status(400).json({
+          success: false,
+          message: "userId est requis",
+        });
+      }
+
+      const recommendations = await recommendationAiService.getRecommendationsByUserId(userId);
 
       logger.info(`Recommandations récupérées pour l'utilisateur: ${userId}`);
 
