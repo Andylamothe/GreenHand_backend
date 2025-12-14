@@ -6,6 +6,7 @@ import recommendationRoutes from "./routes/recommendationRoutes.ts";
 import plantRoute from "./routes/plantRoute.ts";
 import userRoute from "./routes/userRoute.ts";
 import swaggerRoute from "./routes/swaggerRoute.ts";
+import categoryRoute from "./routes/categoryRoute.ts";
 import cors from "cors";
 import config from "config";
 
@@ -19,6 +20,10 @@ const app = express();
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ limit: "10mb", extended: true }));
 
+// -----------------------------------------------------------
+// charts pour les graphiques
+// -----------------------------------------------------------
+app.use("/charts", express.static("public/charts"));
 
 // // --- Configuration CORS --- //
 // const corsOriginsEnv = process.env.CORS_ORIGINS; // ex: http://localhost:3000,http://localhost:5173
@@ -66,6 +71,9 @@ app.use("/api", plantRoute);
 
 //user
 app.use("/api/users", userRoute);
+
+//user
+app.use("/api", categoryRoute);
 
 //swagger
 app.use("/api/docs", swaggerRoute);
