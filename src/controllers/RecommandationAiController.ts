@@ -47,7 +47,7 @@ export class RecommendationAiController {
   // ---------------------------------------------------------
   getRecommendationsByUserId = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { userId } = req.params;
+      const userId = (req as any).user.id;
 
       const recommendations = await recommendationAiService.getRecommendationsByUserId(userId);
 
