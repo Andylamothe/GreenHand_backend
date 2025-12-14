@@ -4,6 +4,7 @@ import authRoute from "./routes/authRoute.ts";
 import inventoryRoute from "./routes/inventoryRoute.ts";
 import recommendationRoutes from "./routes/recommendationRoutes.ts";
 import plantRoute from "./routes/plantRoute.ts";
+import dashboardRoutes from "./routes/dashboardRoutes.ts";
 import cors from "cors";
 import config from "config";
 
@@ -49,5 +50,9 @@ app.use("/api/recommendations", recommendationRoutes);
 
 //plant
 app.use("/api", plantRoute);
+
+//dashboard
+app.use("/api/dashboard", dashboardRoutes);
+
 
 export default app;

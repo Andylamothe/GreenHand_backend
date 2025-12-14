@@ -4,7 +4,6 @@ import { PlantService } from "../services/plantService";
 const plantService = new PlantService();
 
 export class PlantController {
-  // ...
 
   updatePlant = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -28,7 +27,7 @@ export class PlantController {
     }
   };
 
-    addPhoto = async (req: Request, res: Response, next: NextFunction) => {
+  addPhoto = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const plantId = req.params.id as string;
 
@@ -37,7 +36,7 @@ export class PlantController {
       const photo = await plantService.addPhoto(plantId, {
         base64,
         healthScore,
-        comparisonResult
+        comparisonResult,
       });
 
       res.json(photo);
@@ -47,16 +46,17 @@ export class PlantController {
   };
 
   deletePhoto = async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const plantId = req.params.id as string;
-    const photoId = req.params.photoId as string;
+    try {
+      const plantId = req.params.id as string;
+      const photoId = req.params.photoId as string;
 
-    const deleted = await plantService.deletePhoto(plantId, photoId);
+      const deleted = await plantService.deletePhoto(plantId, photoId);
 
-    res.json({ success: true, deleted });
-  } catch (err) {
-    next(err);
-  }
-};
+      res.json({ success: true, deleted });
+    } catch (err) {
+      next(err);
+    }
+  };
+
 
 }
