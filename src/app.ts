@@ -55,6 +55,8 @@ app.use('/api', recommendationRoutes);
 app.get("/", (req, res) => {
   res.send(" Serveur actif ! Bienvenue sur GreenHand ");
 });
+//swagger
+app.use("/api/docs", swaggerRoute);
 
 // Auth 
 app.use("/api/auth", authRoute);

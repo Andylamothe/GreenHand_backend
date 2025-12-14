@@ -1,18 +1,17 @@
 import { Request, Response, NextFunction } from "express";
 import { UserService } from "../services/userService";
 
-// ===========================================================
 // USER CONTROLLER
 // - Expose les handlers HTTP pour l'utilisateur courant
 // - Nécessite authMiddleware (req.user.id)
-// ===========================================================
+
 const userService = new UserService();
 
 export class UserController {
-  // ---------------------------------------------------------
+
   // GET /api/users/me
   // - Retourne les infos du compte (sans password)
-  // ---------------------------------------------------------
+  
   me = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const userId = (req as any).user?.id as string;
@@ -23,11 +22,11 @@ export class UserController {
     }
   };
 
-  // ---------------------------------------------------------
+  
   // PATCH /api/users/me
   // - Met à jour username/location/password
   // - validateUserUpdate protège les entrées
-  // ---------------------------------------------------------
+
   updateMe = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const userId = (req as any).user?.id as string;
@@ -39,10 +38,9 @@ export class UserController {
     }
   };
 
-  // ---------------------------------------------------------
   // DELETE /api/users/me
   // - Supprime le compte courant
-  // ---------------------------------------------------------
+ 
   deleteMe = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const userId = (req as any).user?.id as string;
@@ -53,10 +51,10 @@ export class UserController {
     }
   };
 
-  // ---------------------------------------------------------
+
   // POST /api/users/logout
   // - Logout stateless: côté client, retirer le token
-  // ---------------------------------------------------------
+
   logout = async (_req: Request, res: Response, next: NextFunction) => {
     try {
       // JWT stateless: côté client, supprimer le token (localStorage/cookie)

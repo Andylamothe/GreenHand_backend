@@ -10,7 +10,6 @@ export class PlantController {
     try {
       const plantId = req.params.id as string;
       const updated = await plantService.updatePlant(plantId, req.body);
-
       res.json(updated);
     } catch (err) {
       next(err);
@@ -18,7 +17,14 @@ export class PlantController {
   };
 
   getPlant = async (req: Request, res: Response, next: NextFunction) => {
-     try {
+    try {
+      const plantId = req.params.id as string;
+      const plant = await plantService.getPlant(plantId);
+      res.json(plant);
+    } catch (err) {
+      next(err);
+    }
+  };
 
         const plantId = req.params.id as string;
     const plant = await plantService.getPlant(plantId);
@@ -33,25 +39,21 @@ export class PlantController {
     try {
       const plantId = req.params.id as string;
       const details = await plantService.getPlantDetails(plantId);
-
       res.json(details);
     } catch (err) {
       next(err);
     }
   };
 
-    addPhoto = async (req: Request, res: Response, next: NextFunction) => {
+  addPhoto = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const plantId = req.params.id as string;
-
       const { base64, healthScore, comparisonResult } = req.body;
-
       const photo = await plantService.addPhoto(plantId, {
         base64,
         healthScore,
-        comparisonResult
+        comparisonResult,
       });
-
       res.json(photo);
     } catch (err) {
       next(err);
@@ -59,15 +61,13 @@ export class PlantController {
   };
 
   deletePhoto = async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const plantId = req.params.id as string;
-    const photoId = req.params.photoId as string;
-
-    const deleted = await plantService.deletePhoto(plantId, photoId);
-
-    res.json({ success: true, deleted });
-  } catch (err) {
-    next(err);
-  }
-};
+    try {
+      const plantId = req.params.id as string;
+      const photoId = req.params.photoId as string;
+      const deleted = await plantService.deletePhoto(plantId, photoId);
+      res.json({ success: true, deleted });
+    } catch (err) {
+      next(err);
+    }
+  };
 }
