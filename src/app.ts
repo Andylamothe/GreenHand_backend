@@ -6,8 +6,11 @@ import recommendationRoutes from "./routes/recommendationRoutes.ts";
 import plantRoute from "./routes/plantRoute.ts";
 import userRoute from "./routes/userRoute.ts";
 import swaggerRoute from "./routes/swaggerRoute.ts";
+import categoryRoute from "./routes/categoryRoute.ts";
 import cors from "cors";
 import config from "config";
+import chartsRoute from "./routes/chartsRoute.ts";
+import c from "config";
 
 
 dotenv.config();
@@ -18,6 +21,7 @@ const app = express();
 /// Pour povoir envoyer des images en base64 (taille max augmentée) ///
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ limit: "10mb", extended: true }));
+
 
 
 // // --- Configuration CORS --- //
@@ -57,6 +61,10 @@ app.use("/api/docs", swaggerRoute);
 // Auth 
 app.use("/api/auth", authRoute);
 
+// charts
+app.use("/charts", express.static("public"));
+app.use("/api/charts", chartsRoute);
+
 // Inventory
 app.use("/api/inventory", inventoryRoute);
 
@@ -69,4 +77,9 @@ app.use("/api", plantRoute);
 //user
 app.use("/api/users", userRoute);
 
+//user
+app.use("/api", categoryRoute);
+
+//swagger
+app.use("/api/docs", swaggerRoute);
 export default app;

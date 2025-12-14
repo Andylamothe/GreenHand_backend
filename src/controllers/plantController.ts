@@ -26,6 +26,15 @@ export class PlantController {
     }
   };
 
+        const plantId = req.params.id as string;
+    const plant = await plantService.getPlant(plantId);
+    res.json(plant);
+
+      } catch (err) {
+      next(err);
+    }
+  };
+  
   getPlantDetails = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const plantId = req.params.id as string;

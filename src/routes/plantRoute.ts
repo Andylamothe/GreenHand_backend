@@ -7,6 +7,7 @@ import { Router } from "express";
 import { PlantController } from "../controllers/plantController";
 import { authMiddleware } from "../middlewares/authMiddleWare";
 
+
 const router = Router();
 const plantController = new PlantController();
 
