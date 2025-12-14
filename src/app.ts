@@ -9,6 +9,8 @@ import swaggerRoute from "./routes/swaggerRoute.ts";
 import categoryRoute from "./routes/categoryRoute.ts";
 import cors from "cors";
 import config from "config";
+import chartsRoute from "./routes/chartsRoute.ts";
+import c from "config";
 
 
 dotenv.config();
@@ -20,10 +22,7 @@ const app = express();
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ limit: "10mb", extended: true }));
 
-// -----------------------------------------------------------
-// charts pour les graphiques
-// -----------------------------------------------------------
-app.use("/charts", express.static("public/charts"));
+
 
 // // --- Configuration CORS --- //
 // const corsOriginsEnv = process.env.CORS_ORIGINS; // ex: http://localhost:3000,http://localhost:5173
@@ -59,6 +58,10 @@ app.get("/", (req, res) => {
 
 // Auth 
 app.use("/api/auth", authRoute);
+
+// charts
+app.use("/charts", express.static("public"));
+app.use("/api/charts", chartsRoute);
 
 // Inventory
 app.use("/api/inventory", inventoryRoute);
