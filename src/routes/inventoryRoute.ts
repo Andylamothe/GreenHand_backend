@@ -15,7 +15,7 @@ router.get("/me/plants", inventoryController.getMyPlants);
 router.post("/me/plants", inventoryController.addPlant);
 router.get("/search", inventoryController.search);
 router.get("/filter", inventoryController.filter);
-router.delete("/plants/:id", inventoryController.deletePlant);
+router.delete("/me/plants/:id", inventoryController.deletePlant);
 router.delete(
   "/deleteInventory/:userId",
   roleMiddleware("admin"),

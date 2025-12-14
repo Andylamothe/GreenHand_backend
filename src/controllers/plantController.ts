@@ -9,18 +9,35 @@ export class PlantController {
     try {
       const plantId = req.params.id as string;
       const updated = await plantService.updatePlant(plantId, req.body);
-
       res.json(updated);
     } catch (err) {
       next(err);
     }
   };
 
+  getPlant = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const plantId = req.params.id as string;
+      const plant = await plantService.getPlant(plantId);
+      res.json(plant);
+    } catch (err) {
+      next(err);
+    }
+  };
+
+        const plantId = req.params.id as string;
+    const plant = await plantService.getPlant(plantId);
+    res.json(plant);
+
+      } catch (err) {
+      next(err);
+    }
+  };
+  
   getPlantDetails = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const plantId = req.params.id as string;
       const details = await plantService.getPlantDetails(plantId);
-
       res.json(details);
     } catch (err) {
       next(err);
@@ -30,15 +47,12 @@ export class PlantController {
   addPhoto = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const plantId = req.params.id as string;
-
       const { base64, healthScore, comparisonResult } = req.body;
-
       const photo = await plantService.addPhoto(plantId, {
         base64,
         healthScore,
         comparisonResult,
       });
-
       res.json(photo);
     } catch (err) {
       next(err);

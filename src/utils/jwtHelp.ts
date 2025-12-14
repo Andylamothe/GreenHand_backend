@@ -8,11 +8,23 @@ import { HttpException } from "../utils/http-exception";
 import ms from "ms"; //pour typer correctement les durées
 
 // Secret + durée depuis variables d'env (ou config)
-const JWT_SECRET: Secret =
-  (config.get<string>("security.jwt.secret") || process.env.JWT_SECRET) as string ;
+// IMPORTANT: Toujours vérifier config.has avant config.get pour éviter une exception.
+const resolveJwtSecret = (): Secret => {
+  const envSecret = process.env.JWT_SECRET;
+  if (envSecret && envSecret.length > 0) return envSecret;
+  if (config.has("security.jwt.secret")) return config.get<string>("security.jwt.secret");
+  throw new HttpException(500, "JWT secret manquant. Définissez JWT_SECRET dans .env ou security.jwt.secret dans la config.");
+};
 
-const JWT_EXPIRES_IN =
-  (config.get<string>("security.jwt.expiresIn") || process.env.JWT_EXPIRES_IN || "1h") as ms.StringValue;
+const resolveJwtExpiresIn = (): ms.StringValue => {
+  const envExpires = process.env.JWT_EXPIRES_IN as ms.StringValue | undefined;
+  if (envExpires) return envExpires;
+  if (config.has("security.jwt.expiresIn")) return config.get<string>("security.jwt.expiresIn") as ms.StringValue;
+  return "1h";
+};
+
+const JWT_SECRET: Secret = resolveJwtSecret();
+const JWT_EXPIRES_IN: ms.StringValue = resolveJwtExpiresIn();
 
 
 // -----------------------------------------------------------
