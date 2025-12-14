@@ -4,7 +4,6 @@ import { PlantService } from "../services/plantService";
 const plantService = new PlantService();
 
 export class PlantController {
-  // ...
 
   updatePlant = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -64,10 +63,14 @@ export class PlantController {
     try {
       const plantId = req.params.id as string;
       const photoId = req.params.photoId as string;
+
       const deleted = await plantService.deletePhoto(plantId, photoId);
+
       res.json({ success: true, deleted });
     } catch (err) {
       next(err);
     }
   };
+
+
 }

@@ -4,9 +4,7 @@ import authRoute from "./routes/authRoute.ts";
 import inventoryRoute from "./routes/inventoryRoute.ts";
 import recommendationRoutes from "./routes/recommendationRoutes.ts";
 import plantRoute from "./routes/plantRoute.ts";
-import userRoute from "./routes/userRoute.ts";
-import swaggerRoute from "./routes/swaggerRoute.ts";
-import categoryRoute from "./routes/categoryRoute.ts";
+import dashboardRoutes from "./routes/dashboardRoutes.ts";
 import cors from "cors";
 import config from "config";
 import chartsRoute from "./routes/chartsRoute.ts";
@@ -74,12 +72,8 @@ app.use("/api/recommendations", recommendationRoutes);
 //plant
 app.use("/api", plantRoute);
 
-//user
-app.use("/api/users", userRoute);
+//dashboard
+app.use("/api/dashboard", dashboardRoutes);
 
-//user
-app.use("/api", categoryRoute);
 
-//swagger
-app.use("/api/docs", swaggerRoute);
 export default app;
