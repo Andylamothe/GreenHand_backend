@@ -37,25 +37,25 @@ export const validateLogin = (
 };
 
 // -----------------------------------------------------------
-// UPDATE USER: au moins un champ, et favorites doit être un array si présent
-// HTTP: 400 ici (champ manquant) ; pour un schéma invalide → 422 côté service
+// UPDATE USER
+// - Autorise username, location, password
+// - Vérifie qu'au moins un champ est présent
 // -----------------------------------------------------------
 export const validateUserUpdate = (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
-  const { username, favorites } = req.body;
+  const { username, location, password } = req.body;
 
-  // qu’il y a au moins un champ à modifier
-  if (!username && !favorites) {
+  if (
+    typeof username === "undefined" &&
+    typeof location === "undefined" &&
+    typeof password === "undefined"
+  ) {
     throw new HttpException(400, "Aucun champ à mettre à jour");
-  }
-
-  // Vérifie favorites doit etre un tab
-  if (favorites && !Array.isArray(favorites)) {
-    throw new HttpException(400, "Favorites doit être un tableau");
   }
 
   next();
 };
+

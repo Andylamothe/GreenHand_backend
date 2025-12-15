@@ -46,6 +46,9 @@ export class UserController {
   deleteMe = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const userId = (req as any).user?.id as string;
+
+       console.log("DELETE /users/me called");
+      console.log("User ID from token:", userId);
       await userService.deleteUser(userId);
       res.status(200).json({ success: true });
     } catch (err) {
