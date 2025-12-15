@@ -8,6 +8,8 @@ import dashboardRoutes from "./routes/dashboardRoutes.ts";
 import cors from "cors";
 import config from "config";
 import chartsRoute from "./routes/chartsRoute.ts";
+import swaggerRoute from "./routes/swaggerRoute.ts";
+import categoryRoute from "./routes/categoryRoute.ts";
 import c from "config";
 
 
@@ -61,6 +63,8 @@ app.use("/api/auth", authRoute);
 
 // charts
 app.use("/charts", express.static("public"));
+
+
 app.use("/api/charts", chartsRoute);
 
 // Inventory
@@ -72,6 +76,8 @@ app.use("/api/recommendations", recommendationRoutes);
 //plant
 app.use("/api", plantRoute);
 
+//user
+app.use("/api", categoryRoute);
 //dashboard
 app.use("/api/dashboard", dashboardRoutes);
 

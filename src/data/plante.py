@@ -21,6 +21,9 @@ soil_crop_json = soil_crop_matrix.reset_index().to_dict(orient="records")
 # --- Graph 4 : Distribution pH par culture ---
 ph_json = crop_recommendation[["label","ph"]].to_dict(orient="records")
 
+rain_temp_json = crop_recommendation[["label", "temperature", "rainfall"]].to_dict(orient="records")
+
+
 # --- Graph 5 : Nutrition selon engrais ---
 fert_long = fertilizers.melt(
     id_vars=["Fertilizer Name"],
@@ -35,7 +38,9 @@ result = {
     "avg_npk": avg_npk_json,
     "soil_crop": soil_crop_json,
     "ph": ph_json,
-    "fert_long": fert_long_json
+    "fert_long": fert_long_json,
+    "rain_temp": rain_temp_json,
+    
 }
 
 # --- Afficher JSON pour Node/Express ---
