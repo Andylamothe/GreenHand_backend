@@ -4,6 +4,14 @@ import fs from "fs";
 import { Request, Response } from "express";
 
 export const getWeatherStats = (req: Request, res: Response) => {
+  // Python functionality not available in production
+  if (process.env.NODE_ENV === 'production') {
+    return res.status(503).json({ 
+      error: "Service Unavailable",
+      message: "Weather analytics feature is not available in production environment"
+    });
+  }
+
   const pythonCmd = process.env.NODE_ENV === 'production' ? 'python3' : 'python';
 
   // Resolve script path: prioritize dist/data, fallback to src/data
