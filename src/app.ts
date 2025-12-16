@@ -178,7 +178,7 @@ app.get("/", (req, res) => {
         
         <div class="links">
           <a href="/api/docs" class="link-btn">📚 Documentation API</a>
-          <a href="https://github.com" class="link-btn">💻 GitHub</a>
+          <a href="https://github.com/Andylamothe/GreenHand_backend" class="link-btn">💻 GitHub</a>
         </div>
         
         <div class="info">
