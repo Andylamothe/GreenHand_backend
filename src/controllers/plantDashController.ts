@@ -1,10 +1,17 @@
 import { Request, Response } from "express";
 import { exec } from "child_process";
 import path from "path";
+import fs from "fs";
 
 export const getPlantStats = (req: Request, res: Response) => {
-  const scriptPath = path.join(__dirname, "../data/plante.py");
   const pythonCmd = process.env.NODE_ENV === 'production' ? 'python3' : 'python';
+
+  // Resolve script path for both dev (src) and prod (Render) environments
+  const candidatePaths = [
+    path.resolve(process.cwd(), "src/data/plante.py"),
+    path.join(__dirname, "../data/plante.py"),
+  ];
+  const scriptPath = candidatePaths.find(p => fs.existsSync(p)) || candidatePaths[0];
 
   console.log(`Executing: ${pythonCmd} "${scriptPath}"`);
   console.log(`Working directory: ${process.cwd()}`);
