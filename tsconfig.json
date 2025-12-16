@@ -12,10 +12,10 @@
     // "module": "ESNext",
     // "target": "ES2020",
 
-    "types": ["jest", "node"],
+    // Types are loaded automatically from dependencies
+    // "types": ["jest", "node"],
     // For nodejs:
     // "lib": ["esnext"],
-    // "types": ["node"],
     // and npm install -D @types/node
     "esModuleInterop": true,
     "moduleResolution": "node",
