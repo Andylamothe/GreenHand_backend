@@ -1,6 +1,6 @@
 import { OpenAPIV3 } from 'openapi-types';
 
-// Minimal reusable schemas
+
 const components: OpenAPIV3.ComponentsObject = {
   securitySchemes: {
     bearerAuth: {
@@ -180,6 +180,27 @@ const paths: OpenAPIV3.PathsObject = {
   },
   '/api/recommendations/{userId}': {
     get: { tags: ['Recommendations'], summary: "List user's recommendations", parameters: [{ in: 'path', name: 'userId', required: true, schema: { type: 'string' } }], responses: { '200': { description: 'OK' } } },
+  },
+  '/api/health': {
+    get: {
+      tags: ['Health'],
+      summary: 'Health check',
+      responses: {
+        '200': {
+          description: 'Service is up',
+          content: {
+            'application/json': {
+              schema: {
+                type: 'object',
+                properties: {
+                  status: { type: 'string' }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
   },
 };
 
