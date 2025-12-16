@@ -11,16 +11,21 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Environnement local
+# Environnement local - Ne jamais committer les fichiers .env avec des valeurs réelles!
 .env
-.env.*
+.env.local
+.env.*.local
+.env.production
+.env.test
+.env.development
 
-# config (module "config") – garder default.json etc. mais ignorer les overrides locaux/sensibles
-config/
+# Note: Les fichiers config/*.json peuvent maintenant être commités 
+# car ils utilisent des variables d'environnement au lieu de valeurs en dur
 
-# Certificats / clés locales
+# Certificats / clés locales - Ne pas committer les certificats!
 *.pem
 cert/*
+!cert/.gitkeep
 
 # Postman export
 postman/*.json
@@ -43,8 +48,5 @@ build/
 *.swp
 
 *.csr
-
-# Configuration base de données
-.env
 
 /venv

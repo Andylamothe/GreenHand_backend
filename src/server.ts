@@ -25,8 +25,8 @@ console.log("Redirect HTTP→HTTPS =", config.get("server.https.redirectAllHttpT
 // Ports + options HTTPS
 const httpPort = config.get<number>("server.http.port");
 const httpsPort = config.get<number>("server.https.port");
-const enableHttps = config.get<boolean>("server.https.enabled");
-const redirectAll = config.get<boolean>("server.https.redirectAllHttpToHttps");
+const enableHttps = config.get<boolean>("server.https.enabled") === true || config.get("server.https.enabled") === "true";
+const redirectAll = config.get<boolean>("server.https.redirectAllHttpToHttps") === true || config.get("server.https.redirectAllHttpToHttps") === "true";
 
 // -----------------------------------------------------------
 // CERTIFICATS SSL (si HTTPS activé)
@@ -36,10 +36,20 @@ let sslOptions: any = {};
 if (enableHttps) {
   const keyPath = path.resolve(config.get<string>("ssl.keyPath"));
   const certPath = path.resolve(config.get<string>("ssl.certPath"));
-  sslOptions = {
-    key: fs.readFileSync(keyPath),
-    cert: fs.readFileSync(certPath),
-  };
+  
+  // Vérifier que les fichiers existent avant de les charger
+  if (fs.existsSync(keyPath) && fs.existsSync(certPath)) {
+    sslOptions = {
+      key: fs.readFileSync(keyPath),
+      cert: fs.readFileSync(certPath),
+    };
+  } else {
+    console.error(`⚠️  HTTPS activé mais certificats manquants:`);
+    console.error(`   Key: ${keyPath}`);
+    console.error(`   Cert: ${certPath}`);
+    console.error(`   Exécutez: openssl req -x509 -newkey rsa:4096 -keyout cert/server.key -out cert/server.cert -days 365 -nodes`);
+    process.exit(1);
+  }
 }
 
 // -----------------------------------------------------------
