@@ -1,3 +1,10 @@
+#!/usr/bin/env python3
+import sys
+import os
+
+# Ensure we can import installed packages
+sys.path.insert(0, os.path.dirname(__file__))
+
 import requests
 import pandas as pd
 import json

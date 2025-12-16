@@ -1,6 +1,12 @@
+#!/usr/bin/env python3
+import sys
+import os
+
+# Ensure we can import installed packages
+sys.path.insert(0, os.path.dirname(__file__))
+
 import pandas as pd
 import json
-import os
 
 # --- Chemin absolu vers le dossier dataset ---
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))

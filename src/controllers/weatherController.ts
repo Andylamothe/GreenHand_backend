@@ -6,17 +6,26 @@ import { Request, Response } from "express";
 export const getWeatherStats = (req: Request, res: Response) => {
   const pythonCmd = process.env.NODE_ENV === 'production' ? 'python3' : 'python';
 
-  // Resolve script path for both dev (src) and prod (Render) environments
-  const candidatePaths = [
-    path.resolve(process.cwd(), "src/data/meteo.py"),
-    path.join(__dirname, "../data/meteo.py"),
-  ];
-  const scriptPath = candidatePaths.find(p => fs.existsSync(p)) || candidatePaths[0];
+  // Resolve script path: prioritize dist/data, fallback to src/data
+  let scriptPath: string;
+  const distPath = path.join(__dirname, "../data/meteo.py");
+  const srcPath = path.resolve(process.cwd(), "src/data/meteo.py");
+  
+  if (fs.existsSync(distPath)) {
+    scriptPath = distPath;
+  } else if (fs.existsSync(srcPath)) {
+    scriptPath = srcPath;
+  } else {
+    scriptPath = distPath; // Default fallback
+  }
 
   console.log(`Executing: ${pythonCmd} "${scriptPath}"`);
-  console.log(`Working directory: ${process.cwd()}`);
+  console.log(`Script exists: ${fs.existsSync(scriptPath)}`);
+  console.log(`__dirname: ${__dirname}`);
+  console.log(`process.cwd(): ${process.cwd()}`);
 
-  exec(`${pythonCmd} "${scriptPath}"`, (error, stdout, stderr) => {
+  const envVars = { ...process.env, PYTHONPATH: process.env.PYTHONPATH || '' };
+  exec(`${pythonCmd} "${scriptPath}"`, { env: envVars }, (error, stdout, stderr) => {
     if (error) {
       console.error("Python error:", error.message);
       console.error("Error code:", error.code);

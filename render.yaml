@@ -4,7 +4,7 @@ services:
     env: node
     region: oregon
     plan: free
-    buildCommand: pip3 install -r requirements.txt && npm install && npm run build
+    buildCommand: pip3 install -r requirements.txt && npm install && npm run build && python3 -c "import requests, pandas; print('✅ Python packages verified')"
     startCommand: npm start
     envVars:
       - key: NODE_ENV
