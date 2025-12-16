@@ -1,0 +1,3 @@
+# Dossier pour les certificats SSL
+# Les certificats ne sont pas commités (voir .gitignore)
+# Utilisez generate-cert.ps1 pour créer des certificats de développement

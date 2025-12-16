@@ -1,9 +1,11 @@
-import { Plants } from '../models/Plants.js';
+import { Document, Types } from "mongoose";
 
-export interface IInventory {
-    inventoryId: number;
-    userId: number;
-    plants: Plants[];
-    createdAt: Date;
-    updatedAt: Date;
+
+export interface IInventory extends Document{
+    _id: Types.ObjectId;
+    userId: Types.ObjectId;
+    // quantity: number;
+    // createdAt: Date;
+    // updatedAt: Date;
+
 }

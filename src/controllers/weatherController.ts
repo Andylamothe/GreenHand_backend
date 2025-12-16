@@ -6,19 +6,23 @@ import { Request, Response } from "express";
 export const getWeatherStats = (req: Request, res: Response) => {
   const pythonCmd = process.env.NODE_ENV === 'production' ? 'python3' : 'python';
 
-  // On Render: dist/data/meteo.py
-  // On dev: src/data/meteo.py
-  const distScriptPath = path.join(__dirname, "../data/meteo.py");
-  const srcScriptPath = path.resolve(process.cwd(), "src/data/meteo.py");
+  // Resolve script path: prioritize dist/data, fallback to src/data
+  let scriptPath: string;
+  const distPath = path.join(__dirname, "../data/meteo.py");
+  const srcPath = path.resolve(process.cwd(), "src/data/meteo.py");
   
-  const scriptPath = fs.existsSync(distScriptPath) ? distScriptPath : srcScriptPath;
-  const distExists = fs.existsSync(distScriptPath);
-  const srcExists = fs.existsSync(srcScriptPath);
+  if (fs.existsSync(distPath)) {
+    scriptPath = distPath;
+  } else if (fs.existsSync(srcPath)) {
+    scriptPath = srcPath;
+  } else {
+    scriptPath = distPath; // Default fallback
+  }
 
-  console.log(`[Weather] dist path exists: ${distExists} => ${distScriptPath}`);
-  console.log(`[Weather] src path exists: ${srcExists} => ${srcScriptPath}`);
-  console.log(`[Weather] Using: ${scriptPath}`);
-  console.log(`[Weather] Command: ${pythonCmd} "${scriptPath}"`);
+  console.log(`Executing: ${pythonCmd} "${scriptPath}"`);
+  console.log(`Script exists: ${fs.existsSync(scriptPath)}`);
+  console.log(`__dirname: ${__dirname}`);
+  console.log(`process.cwd(): ${process.cwd()}`);
 
   const envVars = { ...process.env, PYTHONPATH: process.env.PYTHONPATH || '' };
   exec(`${pythonCmd} "${scriptPath}"`, { env: envVars }, (error, stdout, stderr) => {

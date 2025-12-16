@@ -6,19 +6,23 @@ import fs from "fs";
 export const getPlantStats = (req: Request, res: Response) => {
   const pythonCmd = process.env.NODE_ENV === 'production' ? 'python3' : 'python';
 
-  // On Render: dist/data/plante.py
-  // On dev: src/data/plante.py
-  const distScriptPath = path.join(__dirname, "../data/plante.py");
-  const srcScriptPath = path.resolve(process.cwd(), "src/data/plante.py");
+  // Resolve script path: prioritize dist/data, fallback to src/data
+  let scriptPath: string;
+  const distPath = path.join(__dirname, "../data/plante.py");
+  const srcPath = path.resolve(process.cwd(), "src/data/plante.py");
   
-  const scriptPath = fs.existsSync(distScriptPath) ? distScriptPath : srcScriptPath;
-  const distExists = fs.existsSync(distScriptPath);
-  const srcExists = fs.existsSync(srcScriptPath);
+  if (fs.existsSync(distPath)) {
+    scriptPath = distPath;
+  } else if (fs.existsSync(srcPath)) {
+    scriptPath = srcPath;
+  } else {
+    scriptPath = distPath; // Default fallback
+  }
 
-  console.log(`[PlantDash] dist path exists: ${distExists} => ${distScriptPath}`);
-  console.log(`[PlantDash] src path exists: ${srcExists} => ${srcScriptPath}`);
-  console.log(`[PlantDash] Using: ${scriptPath}`);
-  console.log(`[PlantDash] Command: ${pythonCmd} "${scriptPath}"`);
+  console.log(`Executing: ${pythonCmd} "${scriptPath}"`);
+  console.log(`Script exists: ${fs.existsSync(scriptPath)}`);
+  console.log(`__dirname: ${__dirname}`);
+  console.log(`process.cwd(): ${process.cwd()}`);
   
   //le maxBuffer cets pour definir la taillee maximale pour node qui peut stocker pour la sortie standrat et la sortie derreubr
   const envVars = { ...process.env, PYTHONPATH: process.env.PYTHONPATH || '' };

@@ -1,28 +1,50 @@
-//TODO faire les relations entre les models via les methodes appropriées
-// Pour l'instant, juste les classes de base avec les attributs et constructeurs
+import { Schema, model } from "mongoose";
+import { Document, Types } from "mongoose";
+import { IRecommendationAi } from "../interfaces/IRecommendationAi";
 
-import type { IRecommendationAi } from '../interfaces/IRecommendationAi.js';
+ 
+const IRecommendationAiSchema = new Schema<IRecommendationAi>(
+  {
+    userId: {
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: 'Users',
+    },
+    plantId: {
+      type: Schema.Types.ObjectId,
+      ref: 'Plants',
+    },
+    userQuery: {
+      type: String,
+      required: true,
+    },
+    aiResponse: {
+      type: String,
+      required: true,
+    },
+    recommendationType: {
+      type: String,
+      enum: ['watering', 'fertilizing', 'pruning', 'general','health'],
+    },
+    priority: {
+        type: String,
+        enum: ['low', 'medium', 'high'],
+    },
+    dateGenerated: {
+     type: Date,
+     default: Date.now,
+    },
+    isRead: {
+     type: Boolean,
+     default: false,
+    },
+    isApplied: {
+     type: Boolean,
+     default: false,
+    },
+  },
+  { timestamps: true }
+);
+ 
 
-export class RecommendationAi implements IRecommendationAi {
-    id: number;
-    plantId: number; 
-    recommendationType: 'watering' | 'fertilizing' | 'pruning' | 'general' | 'health';
-    recommendationText: string;
-    priority: 'low' | 'medium' | 'high';
-    dateGenerated: Date;
-    isRead: boolean;
-    isApplied: boolean;
-
-    constructor(id: number, plantId: number, recommendationType: 'watering' | 'fertilizing' | 'pruning' | 'general' | 'health', recommendationText: string, priority: 'low' | 'medium' | 'high' = 'medium') {
-        this.id = id;
-        this.plantId = plantId;
-        this.recommendationType = recommendationType;
-        this.recommendationText = recommendationText;
-        this.priority = priority;
-        this.dateGenerated = new Date();
-        this.isRead = false;
-        this.isApplied = false;
-    }
-
-
-}
+export const RecommendationAi = model<IRecommendationAi>("RecommendationAi", IRecommendationAiSchema);
