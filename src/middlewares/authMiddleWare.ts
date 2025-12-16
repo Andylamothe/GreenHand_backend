@@ -19,9 +19,13 @@ export const authMiddleware = (
     // 1) Récupération de l'en-tête Authorization
     // -------------------------------------------------------
     const authHeader = req.headers.authorization;
+    
+    // Log pour déboguer
+    logger.info(`Auth attempt - Path: ${req.path}, Has Auth: ${!!authHeader}`);
 
     // On attend "Bearer <token>"
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      logger.warn(`Auth failed - Missing or invalid header format`);
       throw new HttpException(401, "Token manquant ou invalide");
     }
 

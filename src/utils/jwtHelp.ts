@@ -45,7 +45,12 @@ export const generateToken = (payload: object): string => {
 export const verifyToken = (token: string): any => {
   try {
     return jwt.verify(token, JWT_SECRET);
-  } catch (err) {
+  } catch (err: any) {
+    console.error('JWT Verification Error:', {
+      error: err.message,
+      tokenPreview: token.substring(0, 20) + '...',
+      secretPreview: typeof JWT_SECRET === 'string' ? JWT_SECRET.substring(0, 10) + '...' : 'not-string'
+    });
     throw new HttpException(401, "Token invalide ou expiré");
   }
 };
