@@ -46,7 +46,7 @@ Dans l'onglet **"Environment"**, ajouter ces variables:
 #### Obligatoires
 ```
 NODE_ENV=production
-MONGO_URI=mongodb+srv://votre-user:votre-password@cluster.mongodb.net/GreenHand_Prod
+MONGO_URI=PrivateURL
 JWT_SECRET=[Générer avec la commande ci-dessous]
 ```
 
