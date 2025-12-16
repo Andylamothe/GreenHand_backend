@@ -4,11 +4,20 @@ import { Request, Response } from "express";
 
 export const getWeatherStats = (req: Request, res: Response) => {
   const scriptPath = path.resolve(process.cwd(), "src/data/meteo.py");
+  const pythonCmd = process.env.NODE_ENV === 'production' ? 'python3' : 'python';
 
-  exec(`python "${scriptPath}"`, (error, stdout, stderr) => {
+  console.log(`Executing: ${pythonCmd} "${scriptPath}"`);
+
+  exec(`${pythonCmd} "${scriptPath}"`, (error, stdout, stderr) => {
     if (error) {
-      console.error("Python error:", error);
-      return res.status(500).json({ error: "Python execution failed" });
+      console.error("Python error:", error.message);
+      console.error("Error code:", error.code);
+      console.error("stderr:", stderr);
+      return res.status(500).json({ 
+        error: "Python execution failed",
+        details: error.message,
+        stderr: stderr 
+      });
     }
 
     if (stderr) {
