@@ -200,6 +200,12 @@ app.get("/", (req, res) => {
     </html>
   `);
 });
+// Health check (public)
+app.get("/api/health", (req, res) => {
+  res.json({
+    status: "Backend fonctionne (Pas de données réelles car elles sont sécurisées par l'authentification)."
+  });
+});
 //swagger
 app.use("/api/docs", swaggerRoute);
 
@@ -226,5 +232,12 @@ app.use("/api/users", userRoute);
 app.use("/api/dashboard", dashboardRoutes);
 
 
+
+// Health check
+app.get("/api/health", (req, res) => {
+  res.json({
+    status: "Backend fonctionne (Pas de données réelles car elles sont sécurisées par l'authentification)."
+  });
+});
 
 export default app;
