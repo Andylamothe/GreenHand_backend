@@ -3,6 +3,7 @@ node_modules/
 
 # Fichiers de sortie de TypeScript
 dist/
+build/
 
 # Fichiers de logs
 logs/
@@ -31,7 +32,6 @@ cert/*
 postman/*.json
 
 # Cache et données temporaires
-*.tsbuildinfo
 .DS_Store
 .idea/
 .vscode/
@@ -41,8 +41,8 @@ postman/*.json
 # Fichiers de test coverage (si vous utilisez Jest pour le rapport de couverture)
 coverage/
 
-# Sortie de production
-build/
+# TypeScript build info
+*.tsbuildinfo
 
 # Configurations système
 *.swp

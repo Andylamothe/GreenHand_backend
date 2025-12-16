@@ -2,7 +2,7 @@
   // Visit https://aka.ms/tsconfig to read more about this file
   "compilerOptions": {
     // File Layout
-    "rootDir": "./",
+    "rootDir": "./src",
     "outDir": "./dist",
 
     // Environment Settings
@@ -40,15 +40,15 @@
 
     // Recommended Options
     "strict": true,
+    "skipLibCheck": true
     // "jsx": "react-jsx",
     // "verbatimModuleSyntax": true,
     // "isolatedModules": true,
     // "noUncheckedSideEffectImports": true,
     // "moduleDetection": "force",
-    // "skipLibCheck": true,
-    "noEmit": true,
-    "allowImportingTsExtensions": true
+    // "noEmit": true,
+    // "allowImportingTsExtensions": true
   },
-  "include": ["src/**/*", "tests/**/*"],
-  "exclude": ["node_modules", "dist"]   // Exclure ces répertoires
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist", "tests"]   // Exclure ces répertoires
 }

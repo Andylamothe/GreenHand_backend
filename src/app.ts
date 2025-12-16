@@ -1,16 +1,16 @@
 import express from "express";
 import dotenv from "dotenv";
-import authRoute from "./routes/authRoute.ts";
-import inventoryRoute from "./routes/inventoryRoute.ts";
-import recommendationRoutes from "./routes/recommendationRoutes.ts";
-import plantRoute from "./routes/plantRoute.ts";
-import dashboardRoutes from "./routes/dashboardRoutes.ts";
+import authRoute from "./routes/authRoute";
+import inventoryRoute from "./routes/inventoryRoute";
+import recommendationRoutes from "./routes/recommendationRoutes";
+import plantRoute from "./routes/plantRoute";
+import dashboardRoutes from "./routes/dashboardRoutes";
 import cors from "cors";
 import config from "config";
-import chartsRoute from "./routes/chartsRoute.ts";
-import swaggerRoute from "./routes/swaggerRoute.ts";
-import userRoute from "./routes/userRoute.ts";
-import categoryRoute from "./routes/categoryRoute.ts";
+import chartsRoute from "./routes/chartsRoute";
+import swaggerRoute from "./routes/swaggerRoute";
+import userRoute from "./routes/userRoute";
+import categoryRoute from "./routes/categoryRoute";
 import c from "config";
 
 

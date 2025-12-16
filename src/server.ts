@@ -11,7 +11,7 @@ import fs from "fs";
 import path from "path";
 import http from "http";
 import https from "https";
-import {connectDB} from "./data/connectDB.ts"
+import {connectDB} from "./data/connectDB"
 
 // Debug rapide : voir l'environnement courant
 console.log("ENV:", process.env.NODE_ENV);

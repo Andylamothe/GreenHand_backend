@@ -1,0 +1,41 @@
+services:
+  - type: web
+    name: greenhand-backend
+    env: node
+    region: oregon
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: APP_BASE_PATH
+        value: /api
+      - key: HTTP_ENABLED
+        value: true
+      - key: HTTP_PORT
+        value: 10000
+      - key: HTTPS_ENABLED
+        value: false
+      - key: HTTPS_PORT
+        value: 3443
+      - key: REDIRECT_HTTP_TO_HTTPS
+        value: false
+      - key: TRUST_PROXY
+        value: true
+      - key: MONGO_URI
+        sync: false  # Définir manuellement dans Render Dashboard
+      - key: JWT_SECRET
+        generateValue: true  # Générer automatiquement
+      - key: JWT_EXPIRES_IN
+        value: 2h
+      - key: CORS_ORIGINS
+        value: '["https://votre-frontend.onrender.com"]'
+      - key: RATE_LIMIT_WINDOW_MS
+        value: 900000
+      - key: RATE_LIMIT_MAX
+        value: 80
+      - key: SSL_KEY_PATH
+        value: ./cert/server.key
+      - key: SSL_CERT_PATH
+        value: ./cert/server.cert
