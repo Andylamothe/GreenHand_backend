@@ -188,9 +188,15 @@ export const swaggerSpec: OpenAPIV3.Document = {
   info: {
     title: 'GreenHand API',
     version: '1.0.0',
+    description: 'Plant inventory management and recommendation API for GreenHand mobile application',
+    contact: {
+      name: 'GreenHand Support',
+      email: 'support@greenhand.app',
+    },
   },
   servers: [
-    { url: 'http://localhost:3000', description: 'Local' },
+    { url: 'https://greenhandwebservice.onrender.com/', description: 'Production' },
+    { url: 'http://localhost:3000', description: 'Local Development' },
   ],
   components,
   paths,

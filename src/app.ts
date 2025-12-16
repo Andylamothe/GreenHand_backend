@@ -65,7 +65,7 @@ app.get("/", (req, res) => {
         }
         body {
           font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          background: linear-gradient(135deg, #5F8550 0%, #4a6640 100%);
           min-height: 100vh;
           display: flex;
           align-items: center;
@@ -73,9 +73,11 @@ app.get("/", (req, res) => {
           padding: 20px;
         }
         .container {
-          background: white;
+          background: rgba(95, 133, 80, 0.15);
+          backdrop-filter: blur(10px);
           border-radius: 20px;
-          box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+          border: 1px solid rgba(244, 247, 232, 0.2);
+          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
           max-width: 600px;
           width: 100%;
           padding: 40px;
@@ -86,12 +88,12 @@ app.get("/", (req, res) => {
           margin-bottom: 20px;
         }
         h1 {
-          color: #2d3748;
+          color: #F4F7E8;
           font-size: 32px;
           margin-bottom: 10px;
         }
         .tagline {
-          color: #718096;
+          color: #F4F7E8;
           font-size: 18px;
           margin-bottom: 30px;
         }
@@ -126,8 +128,8 @@ app.get("/", (req, res) => {
           margin-top: 30px;
         }
         .link-btn {
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-          color: white;
+          background: #F4F7E8;
+          color: #5F8550;
           padding: 12px 24px;
           border-radius: 10px;
           text-decoration: none;
@@ -137,12 +139,12 @@ app.get("/", (req, res) => {
         }
         .link-btn:hover {
           transform: translateY(-2px);
-          box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+          box-shadow: 0 10px 20px rgba(244, 247, 232, 0.4);
         }
         .info {
           margin-top: 30px;
           padding: 20px;
-          background: #f7fafc;
+          background: rgba(244, 247, 232, 0.1);
           border-radius: 10px;
           text-align: left;
         }
@@ -150,17 +152,17 @@ app.get("/", (req, res) => {
           display: flex;
           justify-content: space-between;
           padding: 8px 0;
-          border-bottom: 1px solid #e2e8f0;
+          border-bottom: 1px solid rgba(244, 247, 232, 0.2);
         }
         .info-item:last-child {
           border-bottom: none;
         }
         .info-label {
-          color: #718096;
+          color: #F4F7E8;
           font-weight: 600;
         }
         .info-value {
-          color: #2d3748;
+          color: #F4F7E8;
         }
       </style>
     </head>
