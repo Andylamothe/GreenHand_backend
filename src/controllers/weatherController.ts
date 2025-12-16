@@ -3,10 +3,11 @@ import path from "path";
 import { Request, Response } from "express";
 
 export const getWeatherStats = (req: Request, res: Response) => {
-  const scriptPath = path.resolve(process.cwd(), "src/data/meteo.py");
+  const scriptPath = path.join(__dirname, "../data/meteo.py");
   const pythonCmd = process.env.NODE_ENV === 'production' ? 'python3' : 'python';
 
   console.log(`Executing: ${pythonCmd} "${scriptPath}"`);
+  console.log(`Working directory: ${process.cwd()}`);
 
   exec(`${pythonCmd} "${scriptPath}"`, (error, stdout, stderr) => {
     if (error) {

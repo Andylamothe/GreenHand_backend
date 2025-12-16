@@ -3,10 +3,11 @@ import { exec } from "child_process";
 import path from "path";
 
 export const getPlantStats = (req: Request, res: Response) => {
-  const scriptPath = path.resolve(process.cwd(), "src/data/plante.py");
+  const scriptPath = path.join(__dirname, "../data/plante.py");
   const pythonCmd = process.env.NODE_ENV === 'production' ? 'python3' : 'python';
 
   console.log(`Executing: ${pythonCmd} "${scriptPath}"`);
+  console.log(`Working directory: ${process.cwd()}`);
   
   //le maxBuffer cets pour definir la taillee maximale pour node qui peut stocker pour la sortie standrat et la sortie derreubr
   exec(`${pythonCmd} "${scriptPath}"`, { maxBuffer: 1024 * 1024 * 10 }, (error, stdout, stderr) => {
