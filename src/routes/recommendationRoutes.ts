@@ -5,9 +5,11 @@ const router = Router();
 const recommendationAiContll = new RecommendationAiController();
 
 // POST - Sauvegarder une recommandation
-router.post('/recommendations', recommendationAiContll.saveRecommendation);
+// Route: POST /api/recommendations
+router.post('/', recommendationAiContll.saveRecommendation);
 
 // GET - Récupérer toutes les recommandations d'un utilisateur
-router.get('/recommendations/:userId', recommendationAiContll.getRecommendationsByUserId);
+// Route: GET /api/recommendations/:userId
+router.get('/:userId', recommendationAiContll.getRecommendationsByUserId);
 
 export default router;
