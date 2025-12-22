@@ -11,8 +11,3 @@ export default function () {
   check(res, { 'status is 200': (r) => r.status === 200 });
   sleep(1);
 }
-
-
-//Objective du Test léger / Performance:
-//mesurer la vitesse de réponse 
-//aucune saturation
