@@ -114,16 +114,14 @@
           }
         },
         {
-          "name": "PATCH /api/auth/promote/:id",
+          "name": "POST /api/auth/logout",
           "request": {
-            "method": "PATCH",
-            "header": [
-              { "key": "Authorization", "value": "Bearer {{token}}" }
-            ],
+            "method": "POST",
+            "header": [ { "key": "Authorization", "value": "Bearer {{token}}" } ],
             "url": {
-              "raw": "{{base_url}}/api/auth/promote/:id",
+              "raw": "{{base_url}}/api/auth/logout",
               "host": ["{{base_url}}"],
-              "path": ["api", "auth", "promote", ":id"]
+              "path": ["api", "auth", "logout"]
             }
           }
         }
@@ -228,18 +226,7 @@
             }
           }
         },
-        {
-          "name": "GET /api/inventory/filter",
-          "request": {
-            "method": "GET",
-            "header": [ { "key": "Authorization", "value": "Bearer {{token}}" } ],
-            "url": {
-              "raw": "{{base_url}}/api/inventory/filter",
-              "host": ["{{base_url}}"],
-              "path": ["api", "inventory", "filter"]
-            }
-          }
-        },
+        
         {
           "name": "DELETE /api/inventory/plants/:id",
           "request": {
@@ -348,22 +335,6 @@
     {
       "name": "Recommendations",
       "item": [
-        {
-          "name": "POST /api/recommendations",
-          "request": {
-            "method": "POST",
-            "header": [ { "key": "Content-Type", "value": "application/json" } ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"userId\": \"<userId>\",\n  \"plantId\": \"<plantId>\",\n  \"advice\": \"Arroser une fois par semaine\"\n}"
-            },
-            "url": {
-              "raw": "{{base_url}}/api/recommendations",
-              "host": ["{{base_url}}"],
-              "path": ["api", "recommendations"]
-            }
-          }
-        },
         {
           "name": "GET /api/recommendations/:userId",
           "request": {
