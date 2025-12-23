@@ -12,7 +12,7 @@ import swaggerRoute from "./routes/swaggerRoute";
 import userRoute from "./routes/userRoute";
 import categoryRoute from "./routes/categoryRoute";
 import c from "config";
-
+import rateLimit , {RateLimitRequestHandler}from "express-rate-limit";
 
 dotenv.config();
 const app = express();
@@ -46,6 +46,22 @@ app.use(cors({
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true
 }));
+
+// -----------------------------------------------------------
+//  RATE LIMITING
+// -----------------------------------------------------------
+const rateConfig = config.get<{
+  windowMs: number;
+  max: number;
+}>("security.rateLimit");
+
+const limiter: RateLimitRequestHandler = rateLimit({
+  windowMs: rateConfig.windowMs,
+  max: rateConfig.max,
+  message: "Trop de requêtes, réessayez plus tard.",
+});
+
+
 
 //------------ ROUTES ------------//
 // Home
@@ -210,7 +226,7 @@ app.get("/api/health", (req, res) => {
 app.use("/api/docs", swaggerRoute);
 
 // Auth 
-app.use("/api/auth", authRoute);
+app.use("/api/auth", limiter, authRoute);
 
 
 // Inventory
