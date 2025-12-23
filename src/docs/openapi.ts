@@ -34,6 +34,15 @@ const components: OpenAPIV3.ComponentsObject = {
         success: { type: 'boolean' },
       },
     },
+    PlantPhotoRequest: {
+      type: 'object',
+      required: ['base64'],
+      properties: {
+        base64: { type: 'string', description: 'Base64 image data URI' },
+        healthScore: { type: 'number' },
+        comparisonResult: { type: 'string' },
+      },
+    },
   },
 };
 
@@ -173,6 +182,57 @@ const paths: OpenAPIV3.PathsObject = {
 
   '/api/plants/{id}': {
     patch: { tags: ['Plants'], summary: 'Update plant', security: [{ bearerAuth: [] }], parameters: [{ in: 'path', name: 'id', required: true, schema: { type: 'string' } }], responses: { '200': { description: 'OK' } } },
+  },
+
+  '/api/plant/{id}': {
+    get: {
+      tags: ['Plants'],
+      summary: 'Get plant by id',
+      security: [{ bearerAuth: [] }],
+      parameters: [{ in: 'path', name: 'id', required: true, schema: { type: 'string' } }],
+      responses: { '200': { description: 'OK' }, '404': { description: 'Not found' } },
+    },
+  },
+
+  '/api/plants/{id}/details': {
+    get: {
+      tags: ['Plants'],
+      summary: 'Get plant details (analysis)',
+      security: [{ bearerAuth: [] }],
+      parameters: [{ in: 'path', name: 'id', required: true, schema: { type: 'string' } }],
+      responses: { '200': { description: 'OK' }, '404': { description: 'Not found' } },
+    },
+  },
+
+  '/api/plants/{id}/photos': {
+    post: {
+      tags: ['Plants'],
+      summary: 'Upload plant photo and health metadata',
+      security: [{ bearerAuth: [] }],
+      parameters: [{ in: 'path', name: 'id', required: true, schema: { type: 'string' } }],
+      requestBody: {
+        required: true,
+        content: {
+          'application/json': {
+            schema: { $ref: '#/components/schemas/PlantPhotoRequest' },
+          },
+        },
+      },
+      responses: { '201': { description: 'Photo stored' }, '400': { description: 'Invalid payload' } },
+    },
+  },
+
+  '/api/plants/{id}/photos/{photoId}': {
+    delete: {
+      tags: ['Plants'],
+      summary: 'Delete plant photo',
+      security: [{ bearerAuth: [] }],
+      parameters: [
+        { in: 'path', name: 'id', required: true, schema: { type: 'string' } },
+        { in: 'path', name: 'photoId', required: true, schema: { type: 'string' } },
+      ],
+      responses: { '200': { description: 'Deleted' }, '404': { description: 'Not found' } },
+    },
   },
 
   '/api/recommendations': {
