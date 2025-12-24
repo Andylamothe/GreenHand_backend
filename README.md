@@ -52,7 +52,7 @@ Green Hand est une application mobile conçue pour aider les petits agriculteurs
 
 - Andy Lamothe-Futu : Machine Learning, Frontend UI/UX, CRUD Chatbot, Tests unitaires,  Architecture frontend & backend. 
 
-- Yislaine Perez Gracias : CRUD utilisateur, Swagger, Postman, tests unitaire.
+- Yislaine Perez Gracias : regex, CRUD utilisateur, Swagger, Postman, tests unitaire.
 
 ## Fonctionnalités natives utilisées
 
